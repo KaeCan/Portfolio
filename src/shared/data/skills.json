@@ -1,0 +1,50 @@
+{
+    "skillsData": {
+        "frontend": [
+            { "label": "React", "icon": "⚛️" },
+            { "label": "TypeScript", "icon": "🔷" },
+            { "label": "JavaScript", "icon": "🟨" },
+            { "label": "HTML/CSS", "icon": "🌐" },
+            { "label": "Tailwind CSS", "icon": "💨" },
+            { "label": "Next.js", "icon": "▲" },
+            { "label": "Vue.js", "icon": "💚" },
+            { "label": "Astro", "icon": "🚀" }
+        ],
+        "backend": [
+            { "label": "Node.js", "icon": "🟢" },
+            { "label": "Python", "icon": "🐍" },
+            { "label": "Express.js", "icon": "🚂" },
+            { "label": "PostgreSQL", "icon": "🐘" },
+            { "label": "MongoDB", "icon": "🍃" },
+            { "label": "REST APIs", "icon": "🔗" },
+            { "label": "GraphQL", "icon": "🔮" },
+            { "label": "Prisma", "icon": "🔺" }
+        ],
+        "tools": [
+            { "label": "Git", "icon": "📝" },
+            { "label": "Docker", "icon": "🐳" },
+            { "label": "AWS", "icon": "☁️" },
+            { "label": "Figma", "icon": "🎨" },
+            { "label": "VS Code", "icon": "💻" },
+            { "label": "Webpack", "icon": "📦" },
+            { "label": "Vite", "icon": "⚡" },
+            { "label": "Jest", "icon": "🃏" }
+        ],
+        "other": [
+            { "label": "Firebase", "icon": "🔥" },
+            { "label": "Vercel", "icon": "▲" },
+            { "label": "Netlify", "icon": "🌊" },
+            { "label": "Cypress", "icon": "🌲" },
+            { "label": "Redux", "icon": "🔄" },
+            { "label": "Zustand", "icon": "🐻" },
+            { "label": "Supabase", "icon": "⚡" },
+            { "label": "Framer Motion", "icon": "🎭" }
+        ]
+    },
+    "categories": [
+        { "key": "frontend", "label": "Frontend" },
+        { "key": "backend", "label": "Backend" },
+        { "key": "tools", "label": "Tools" },
+        { "key": "other", "label": "Other" }
+    ]
+}

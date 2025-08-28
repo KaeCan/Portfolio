@@ -1,0 +1,37 @@
+{
+    "experiences": [
+        {
+            "company": "Tech Company",
+            "position": "Senior Full Stack Developer",
+            "duration": "2022 - Present",
+            "description": "Led development of scalable web applications using React, TypeScript, and Node.js. Collaborated with cross-functional teams to deliver high-quality software solutions.",
+            "technologies": [
+                "React",
+                "TypeScript",
+                "Node.js",
+                "PostgreSQL",
+                "AWS"
+            ]
+        },
+        {
+            "company": "Startup Inc",
+            "position": "Full Stack Developer",
+            "duration": "2020 - 2022",
+            "description": "Built and maintained multiple client projects from conception to deployment. Focused on creating responsive, user-friendly interfaces and robust backend systems.",
+            "technologies": ["Vue.js", "Python", "Django", "MongoDB", "Docker"]
+        },
+        {
+            "company": "Digital Agency",
+            "position": "Frontend Developer",
+            "duration": "2019 - 2020",
+            "description": "Developed modern, responsive websites and web applications for various clients. Specialized in creating pixel-perfect designs and smooth user experiences.",
+            "technologies": ["JavaScript", "React", "Sass", "Webpack", "Git"]
+        }
+    ],
+    "stats": [
+        { "number": "5+", "label": "Years Experience" },
+        { "number": "50+", "label": "Projects Completed" },
+        { "number": "25+", "label": "Happy Clients" },
+        { "number": "∞", "label": "Coffee Cups" }
+    ]
+}
