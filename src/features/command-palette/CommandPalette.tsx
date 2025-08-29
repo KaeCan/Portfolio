@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Box, Typography, Modal } from '@mui/material';
+import { Box, Typography, Modal, Fade } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import CodeBracketIcon from '@mui/icons-material/Code';
 import WorkIcon from '@mui/icons-material/Work';
@@ -187,137 +187,150 @@ const CustomCommandPalette: React.FC<CustomCommandPaletteProps> = ({
             }}
             sx={commandPaletteStyles.getModalStyles()}
         >
-            <Box sx={commandPaletteStyles.getCommandPaletteContainerStyles()}>
-                <Box sx={commandPaletteStyles.getSearchInputContainerStyles()}>
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        placeholder="Search for commands, sections, or actions..."
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                        style={commandPaletteStyles.getSearchInputStyles()}
-                    />
-                    <style>
-                        {commandPaletteStyles.getSearchInputPlaceholderStyles()}
-                    </style>
-                </Box>
-
+            <Fade in={isOpen} timeout={300}>
                 <Box
-                    ref={scrollContainerRef}
-                    sx={commandPaletteStyles.getResultsContainerStyles()}
+                    sx={commandPaletteStyles.getCommandPaletteContainerStyles()}
                 >
-                    {filteredGroups.length > 0 ? (
-                        filteredGroups.map(group => (
+                    <Box
+                        sx={commandPaletteStyles.getSearchInputContainerStyles()}
+                    >
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            placeholder="Search for commands, sections, or actions..."
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                            style={commandPaletteStyles.getSearchInputStyles()}
+                        />
+                        <style>
+                            {commandPaletteStyles.getSearchInputPlaceholderStyles()}
+                        </style>
+                    </Box>
+
+                    <Box
+                        ref={scrollContainerRef}
+                        sx={commandPaletteStyles.getResultsContainerStyles()}
+                    >
+                        {filteredGroups.length > 0 ? (
+                            filteredGroups.map(group => (
+                                <Box
+                                    key={group.id}
+                                    sx={commandPaletteStyles.getGroupContainerStyles()}
+                                >
+                                    <Typography
+                                        variant="caption"
+                                        sx={commandPaletteStyles.getGroupHeadingStyles()}
+                                    >
+                                        {group.heading}
+                                    </Typography>
+
+                                    {group.items.map(item => {
+                                        const isSelected =
+                                            currentItemIndex === selectedIndex;
+                                        const itemIndex = currentItemIndex++;
+
+                                        return (
+                                            <Box
+                                                key={item.id}
+                                                data-item-index={itemIndex}
+                                                onClick={() =>
+                                                    handleItemAction(item)
+                                                }
+                                                onMouseEnter={() =>
+                                                    setSelectedIndex(itemIndex)
+                                                }
+                                                sx={commandPaletteStyles.getCommandItemStyles(
+                                                    isSelected
+                                                )}
+                                            >
+                                                {renderIcon(item.icon)}
+                                                <Typography
+                                                    sx={commandPaletteStyles.getCommandItemTextStyles()}
+                                                >
+                                                    {item.children}
+                                                </Typography>
+                                                {item.href && (
+                                                    <Typography
+                                                        variant="caption"
+                                                        sx={commandPaletteStyles.getCommandItemBadgeStyles()}
+                                                    >
+                                                        {item.target ===
+                                                        '_blank'
+                                                            ? 'Link'
+                                                            : 'Action'}
+                                                    </Typography>
+                                                )}
+                                            </Box>
+                                        );
+                                    })}
+                                </Box>
+                            ))
+                        ) : (
                             <Box
-                                key={group.id}
-                                sx={commandPaletteStyles.getGroupContainerStyles()}
+                                sx={commandPaletteStyles.getNoResultsContainerStyles()}
                             >
                                 <Typography
-                                    variant="caption"
-                                    sx={commandPaletteStyles.getGroupHeadingStyles()}
+                                    sx={commandPaletteStyles.getNoResultsTextStyles()}
                                 >
-                                    {group.heading}
+                                    No results found for &quot;{search}&quot;
                                 </Typography>
-
-                                {group.items.map(item => {
-                                    const isSelected =
-                                        currentItemIndex === selectedIndex;
-                                    const itemIndex = currentItemIndex++;
-
-                                    return (
-                                        <Box
-                                            key={item.id}
-                                            data-item-index={itemIndex}
-                                            onClick={() =>
-                                                handleItemAction(item)
-                                            }
-                                            onMouseEnter={() =>
-                                                setSelectedIndex(itemIndex)
-                                            }
-                                            sx={commandPaletteStyles.getCommandItemStyles(
-                                                isSelected
-                                            )}
-                                        >
-                                            {renderIcon(item.icon)}
-                                            <Typography
-                                                sx={commandPaletteStyles.getCommandItemTextStyles()}
-                                            >
-                                                {item.children}
-                                            </Typography>
-                                            {item.href && (
-                                                <Typography
-                                                    variant="caption"
-                                                    sx={commandPaletteStyles.getCommandItemBadgeStyles()}
-                                                >
-                                                    {item.target === '_blank'
-                                                        ? 'Link'
-                                                        : 'Action'}
-                                                </Typography>
-                                            )}
-                                        </Box>
-                                    );
-                                })}
                             </Box>
-                        ))
-                    ) : (
-                        <Box
-                            sx={commandPaletteStyles.getNoResultsContainerStyles()}
-                        >
-                            <Typography
-                                sx={commandPaletteStyles.getNoResultsTextStyles()}
-                            >
-                                No results found for &quot;{search}&quot;
-                            </Typography>
-                        </Box>
-                    )}
-                </Box>
-
-                <Box sx={commandPaletteStyles.getFooterStyles()}>
-                    <Box sx={commandPaletteStyles.getFooterControlsStyles()}>
-                        <Box
-                            sx={commandPaletteStyles.getFooterControlItemStyles()}
-                        >
-                            <Box
-                                component="kbd"
-                                sx={commandPaletteStyles.getKbdStyles()}
-                            >
-                                ↑↓
-                            </Box>
-                            <Typography variant="caption">
-                                to navigate
-                            </Typography>
-                        </Box>
-                        <Box
-                            sx={commandPaletteStyles.getFooterControlItemStyles()}
-                        >
-                            <Box
-                                component="kbd"
-                                sx={commandPaletteStyles.getKbdStyles()}
-                            >
-                                ↵
-                            </Box>
-                            <Typography variant="caption">to select</Typography>
-                        </Box>
-                        <Box
-                            sx={commandPaletteStyles.getFooterControlItemStyles()}
-                        >
-                            <Box
-                                component="kbd"
-                                sx={commandPaletteStyles.getKbdStyles()}
-                            >
-                                esc
-                            </Box>
-                            <Typography variant="caption">to close</Typography>
-                        </Box>
+                        )}
                     </Box>
-                    <Typography
-                        variant="caption"
-                        sx={commandPaletteStyles.getFooterBrandStyles()}
-                    >
-                        Kyle Chan Portfolio
-                    </Typography>
+
+                    <Box sx={commandPaletteStyles.getFooterStyles()}>
+                        <Box
+                            sx={commandPaletteStyles.getFooterControlsStyles()}
+                        >
+                            <Box
+                                sx={commandPaletteStyles.getFooterControlItemStyles()}
+                            >
+                                <Box
+                                    component="kbd"
+                                    sx={commandPaletteStyles.getKbdStyles()}
+                                >
+                                    ↑↓
+                                </Box>
+                                <Typography variant="caption">
+                                    to navigate
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={commandPaletteStyles.getFooterControlItemStyles()}
+                            >
+                                <Box
+                                    component="kbd"
+                                    sx={commandPaletteStyles.getKbdStyles()}
+                                >
+                                    ↵
+                                </Box>
+                                <Typography variant="caption">
+                                    to select
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={commandPaletteStyles.getFooterControlItemStyles()}
+                            >
+                                <Box
+                                    component="kbd"
+                                    sx={commandPaletteStyles.getKbdStyles()}
+                                >
+                                    esc
+                                </Box>
+                                <Typography variant="caption">
+                                    to close
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Typography
+                            variant="caption"
+                            sx={commandPaletteStyles.getFooterBrandStyles()}
+                        >
+                            Kyle Chan Portfolio
+                        </Typography>
+                    </Box>
                 </Box>
-            </Box>
+            </Fade>
         </Modal>
     );
 };

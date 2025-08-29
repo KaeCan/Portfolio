@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import heroStyles from './hero.styles';
 
 const Hero: React.FC = () => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect((): (() => void) => {
+        // Trigger animations when component mounts
+        const timer = setTimeout((): void => {
+            setIsVisible(true);
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <Box component="section" sx={heroStyles.getHeroSectionStyles()}>
             <Container sx={heroStyles.getHeroContainerStyles()}>
-                <Box sx={heroStyles.getProfileImageContainerStyles()}>
+                <Box
+                    sx={heroStyles.getProfileImageContainerStyles()}
+                    className={isVisible ? 'animate-profile-image' : ''}
+                >
                     <Box sx={heroStyles.getProfileImageOuterStyles()}>
                         <Box sx={heroStyles.getProfileImageInnerStyles()}>
                             <svg
@@ -28,6 +42,7 @@ const Hero: React.FC = () => {
                 <Typography
                     component="h1"
                     sx={heroStyles.getMainHeadingStyles()}
+                    className={isVisible ? 'animate-heading' : ''}
                 >
                     Hi, I&apos;m{' '}
                     <Box
@@ -38,11 +53,17 @@ const Hero: React.FC = () => {
                     </Box>
                 </Typography>
 
-                <Typography sx={heroStyles.getSubtitleStyles()}>
+                <Typography
+                    sx={heroStyles.getSubtitleStyles()}
+                    className={isVisible ? 'animate-subtitle' : ''}
+                >
                     Full Stack Developer
                 </Typography>
 
-                <Box sx={heroStyles.getCommandHintContainerStyles()}>
+                <Box
+                    sx={heroStyles.getCommandHintContainerStyles()}
+                    className={isVisible ? 'animate-command-hint' : ''}
+                >
                     <Box sx={heroStyles.getCommandHintStyles()}>
                         <Box sx={heroStyles.getKbdContainerStyles()}>
                             <Box component="kbd" sx={heroStyles.getKbdStyles()}>

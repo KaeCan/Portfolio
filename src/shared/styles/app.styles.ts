@@ -3,8 +3,8 @@ import type { SxProps, Theme } from '@mui/material';
 const getAppContainerStyles = (): SxProps<Theme> => ({
     minHeight: '100vh',
     background:
-        'linear-gradient(-45deg, #455376, #3c4f6e, #2f3d52, #24354f, #352e5a, #322a52)',
-    backgroundSize: '400% 400%',
+        'linear-gradient(-45deg, #77528d, #4b3c6e, #2d3a4e, #24354f, #23345a, #364a75)',
+    backgroundSize: '200% 200%',
     animation: 'gradient-shift 15s ease infinite',
     '@keyframes gradient-shift': {
         '0%': {

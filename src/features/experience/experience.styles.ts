@@ -86,7 +86,10 @@ const getExperienceTechStyles = (): SxProps<Theme> => ({
 const getStatsGridStyles = (): SxProps<Theme> => ({
     mt: 8,
     display: 'grid',
-    gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+    gridTemplateColumns: {
+        xs: '1fr',
+        md: '1fr 2fr',
+    },
     gap: 3,
 });
 
@@ -100,6 +103,11 @@ const getStatCardStyles = (): SxProps<Theme> => ({
     boxShadow:
         '0 8px 24px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
     transition: 'all 300ms ease-out',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '120px',
     '&:hover': {
         backgroundColor: 'rgba(255, 255, 255, 0.08)',
         border: '1px solid rgba(255, 255, 255, 0.15)',

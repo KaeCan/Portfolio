@@ -96,7 +96,6 @@ const getCommandItemStyles = (isSelected: boolean): SxProps<Theme> => ({
     cursor: 'pointer',
     color: 'rgba(255, 255, 255, 0.8)',
     fontSize: '14px',
-    transition: 'all 250ms ease',
     ...(isSelected && {
         backgroundColor: 'rgba(37, 99, 235, 0.3)',
         backdropFilter: 'blur(16px)',
@@ -105,17 +104,6 @@ const getCommandItemStyles = (isSelected: boolean): SxProps<Theme> => ({
         color: 'rgba(255, 255, 255, 0.95)',
         boxShadow:
             '0 6px 20px rgba(37, 99, 235, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-    }),
-    ...(!isSelected && {
-        '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
-            color: 'rgba(255, 255, 255, 0.95)',
-            boxShadow:
-                '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        },
     }),
 });
 

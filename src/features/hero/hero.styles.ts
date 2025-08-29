@@ -5,6 +5,25 @@ const getHeroSectionStyles = (): SxProps<Theme> => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    '& .animate-profile-image': {
+        opacity: 1,
+        transform: 'translateY(0)',
+    },
+    '& .animate-heading': {
+        opacity: 1,
+        transform: 'translateX(0)',
+        transitionDelay: '0.1s',
+    },
+    '& .animate-subtitle': {
+        opacity: 1,
+        transform: 'translateX(0)',
+        transitionDelay: '0.3s',
+    },
+    '& .animate-command-hint': {
+        opacity: 1,
+        transform: 'translateY(0)',
+        transitionDelay: '0.5s',
+    },
 });
 
 const getHeroContainerStyles = (): SxProps<Theme> => ({
@@ -16,6 +35,9 @@ const getHeroContainerStyles = (): SxProps<Theme> => ({
 
 const getProfileImageContainerStyles = (): SxProps<Theme> => ({
     mb: 4,
+    opacity: 0,
+    transform: 'translateY(-30px)',
+    transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
 const getProfileImageOuterStyles = (): SxProps<Theme> => ({
@@ -25,6 +47,9 @@ const getProfileImageOuterStyles = (): SxProps<Theme> => ({
     borderRadius: '50%',
     background: 'linear-gradient(135deg, #3b82f6, #9333ea)',
     padding: '4px',
+    backdropFilter: 'blur(20px)',
+    boxShadow:
+        '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
 });
 
 const getProfileImageInnerStyles = (): SxProps<Theme> => ({
@@ -42,6 +67,9 @@ const getMainHeadingStyles = (): SxProps<Theme> => ({
     fontWeight: 'bold',
     color: '#f1f5f9',
     mb: 3,
+    opacity: 0,
+    transform: 'translateX(-40px)',
+    transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
 const getNameGradientStyles = (): SxProps<Theme> => ({
@@ -56,10 +84,16 @@ const getSubtitleStyles = (): SxProps<Theme> => ({
     color: '#cbd5e1',
     mb: 4,
     lineHeight: 1.6,
+    opacity: 0,
+    transform: 'translateX(40px)',
+    transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
 const getCommandHintContainerStyles = (): SxProps<Theme> => ({
     mb: 6,
+    opacity: 0,
+    transform: 'translateY(30px)',
+    transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
 const getCommandHintStyles = (): SxProps<Theme> => ({

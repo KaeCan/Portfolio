@@ -29,7 +29,6 @@
         }
     ],
     "stats": [
-        { "number": "5+", "label": "Years Experience" },
         { "number": "50+", "label": "Projects Completed" },
         { "number": "25+", "label": "Happy Clients" },
         { "number": "∞", "label": "Coffee Cups" }
