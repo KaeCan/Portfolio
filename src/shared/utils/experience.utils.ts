@@ -5,7 +5,16 @@ const WORK_HOURS_PER_YEAR = 2080;
 export const calculateTotalHours = (experiences: ExperienceItem[]): number => {
     let totalHours = 0;
 
-    experiences.forEach(exp => {
+    const sortedExperiences = [...experiences].sort((a, b) => {
+        const aStart = parseDate(a.duration.split(' - ')[0]);
+        const bStart = parseDate(b.duration.split(' - ')[0]);
+        
+        if (!aStart || !bStart) return 0;
+        return aStart.getTime() - bStart.getTime();
+    });
+
+    // gaps are excluded
+    sortedExperiences.forEach(exp => {
         const duration = exp.duration;
         // Parse duration like "Jan 2022 - Present" or "Mar 2020 - Dec 2022" or "2020 - 2022"
         const periods = duration.split(' - ');
