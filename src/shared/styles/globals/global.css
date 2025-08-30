@@ -24,7 +24,6 @@ html {
 body {
     line-height: 1.6;
     color: var(--text-primary);
-    background-color: var(--background);
 }
 
 /* Smooth transitions for consistency (no theme switching) */
@@ -59,7 +58,6 @@ body {
     outline-offset: 2px;
 }
 
-/* Animated gradient background - dark mode only */
 @keyframes gradient-shift {
     0% {
         background-position: 0% 50%;
@@ -70,20 +68,6 @@ body {
     100% {
         background-position: 0% 50%;
     }
-}
-
-.animated-gradient {
-    background: linear-gradient(
-        -45deg,
-        #455376,
-        #3c4f6e,
-        #2f3d52,
-        #24354f,
-        #352e5a,
-        #322a52
-    );
-    background-size: 400% 400%;
-    animation: gradient-shift 15s ease infinite;
 }
 
 .page-transition-enter {

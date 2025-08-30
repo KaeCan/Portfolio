@@ -1,26 +1,14 @@
 import type { SxProps, Theme } from '@mui/material';
 
 const getAppContainerStyles = (): SxProps<Theme> => ({
-    minHeight: '100vh',
     background:
         'linear-gradient(-45deg, #77528d, #4b3c6e, #2d3a4e, #24354f, #23345a, #364a75)',
     backgroundSize: '200% 200%',
     animation: 'gradient-shift 15s ease infinite',
-    '@keyframes gradient-shift': {
-        '0%': {
-            backgroundPosition: '0% 50%',
-        },
-        '50%': {
-            backgroundPosition: '100% 50%',
-        },
-        '100%': {
-            backgroundPosition: '0% 50%',
-        },
-    },
-});
-
-const getTransitionGroupStyles = (): React.CSSProperties => ({
     minHeight: '100vh',
+    width: '100%',
+    position: 'relative',
+    zIndex: 0,
 });
 
 const getPageContainerStyles = (): SxProps<Theme> => ({
@@ -29,6 +17,7 @@ const getPageContainerStyles = (): SxProps<Theme> => ({
     left: 0,
     right: 0,
     bottom: 0,
+    background: 'transparent',
 });
 
 const getFabStyles = (): SxProps<Theme> => ({
@@ -53,7 +42,6 @@ const getFabStyles = (): SxProps<Theme> => ({
 
 const appStyles = {
     getAppContainerStyles,
-    getTransitionGroupStyles,
     getPageContainerStyles,
     getFabStyles,
 };

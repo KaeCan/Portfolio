@@ -5,6 +5,7 @@ const getHeroSectionStyles = (): SxProps<Theme> => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
     '& .animate-profile-image': {
         opacity: 1,
         transform: 'translateY(0)',

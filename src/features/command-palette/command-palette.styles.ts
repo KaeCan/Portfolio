@@ -159,10 +159,6 @@ const getKbdStyles = (): SxProps<Theme> => ({
         'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
 });
 
-const getFooterBrandStyles = (): SxProps<Theme> => ({
-    color: 'rgba(255, 255, 255, 0.6)',
-});
-
 const commandPaletteStyles = {
     getModalStyles,
     getBackdropStyles,
@@ -182,7 +178,6 @@ const commandPaletteStyles = {
     getFooterControlsStyles,
     getFooterControlItemStyles,
     getKbdStyles,
-    getFooterBrandStyles,
 };
 
 export default commandPaletteStyles;

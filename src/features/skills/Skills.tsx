@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import skillsStyles from './skills.styles';
 import skillsData from '../../shared/data/skills.json';
 import type { SkillsData } from '../../shared/types/index';
@@ -9,12 +9,28 @@ const Skills: React.FC = () => {
         null
     );
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [displayCategory, setDisplayCategory] = useState<string | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const lastClickTime = useRef<number>(0);
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const skillsDataImported = skillsData.skillsData;
     const categories = skillsData.categories;
 
+    useEffect(() => {
+        return (): void => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
     const getCategoryIcon = (categoryKey: string): JSX.Element | null => {
-        const iconStyle = { width: 32, height: 32, color: 'white' };
+        const iconSize = isMobile ? (isExpanded ? 24 : 28) : 32;
+        const iconStyle = { width: iconSize, height: iconSize, color: 'white' };
 
         switch (categoryKey) {
             case 'frontend':
@@ -93,16 +109,43 @@ const Skills: React.FC = () => {
     };
 
     const handleCategoryClick = (categoryKey: string): void => {
+        const currentTime = Date.now();
+        const timeSinceLastClick = currentTime - lastClickTime.current;
+        const isRapidClick = timeSinceLastClick < 800;
+
+        lastClickTime.current = currentTime;
+
         if (!isExpanded) {
             setIsExpanded(true);
             setSelectedCategory(categoryKey);
-        } else {
+            setDisplayCategory(categoryKey);
+        } else if (selectedCategory !== categoryKey) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+
+            if (isRapidClick || isTransitioning) {
+                setSelectedCategory(categoryKey);
+                setDisplayCategory(categoryKey);
+                setIsTransitioning(false);
+                return;
+            }
+
+            setIsTransitioning(true);
             setSelectedCategory(categoryKey);
+
+            timeoutRef.current = setTimeout(() => {
+                setDisplayCategory(categoryKey);
+                setIsTransitioning(false);
+            }, 200);
         }
     };
 
     return (
-        <Box component="section" sx={skillsStyles.getSkillsSectionStyles()}>
+        <Box
+            component="section"
+            sx={skillsStyles.getSkillsSectionStyles(isExpanded)}
+        >
             <Box sx={skillsStyles.getSkillsMainContainerStyles()}>
                 <Box
                     sx={skillsStyles.getCategoryTilesContainerStyles(
@@ -125,16 +168,12 @@ const Skills: React.FC = () => {
                                 )}
                             >
                                 <Box
-                                    sx={skillsStyles.getCategoryIconContainerStyles(
-                                        isExpanded
-                                    )}
+                                    sx={skillsStyles.getCategoryIconContainerStyles()}
                                 >
                                     {getCategoryIcon(category.key)}
                                 </Box>
                                 <Typography
-                                    sx={skillsStyles.getCategoryLabelStyles(
-                                        isExpanded
-                                    )}
+                                    sx={skillsStyles.getCategoryLabelStyles()}
                                 >
                                     {category.label}
                                 </Typography>
@@ -144,27 +183,27 @@ const Skills: React.FC = () => {
                 </Box>
 
                 <Box sx={skillsStyles.getSkillsDisplayAreaStyles(isExpanded)}>
-                    {selectedCategory && isExpanded && (
-                        <Box sx={skillsStyles.getSkillsCardStyles()}>
-                            <Typography
-                                component="h3"
-                                sx={skillsStyles.getSkillsTitleStyles()}
-                            >
-                                {
-                                    categories.find(
-                                        cat => cat.key === selectedCategory
-                                    )?.label
-                                }{' '}
-                                Technologies
-                            </Typography>
-                            <Box sx={skillsStyles.getSkillsGridStyles()}>
-                                {skillsDataImported[
-                                    selectedCategory as keyof SkillsData
+                    <Box sx={skillsStyles.getSkillsCardStyles()}>
+                        <Typography
+                            component="h3"
+                            sx={skillsStyles.getSkillsTitleStyles()}
+                        >
+                            {selectedCategory
+                                ? `${categories.find(cat => cat.key === selectedCategory)?.label} Technologies`
+                                : 'Select a category'}
+                        </Typography>
+                        <Box sx={skillsStyles.getSkillsGridStyles()}>
+                            {displayCategory && isExpanded ? (
+                                skillsDataImported[
+                                    displayCategory as keyof SkillsData
                                 ].map((skill, index) => (
-                                    <Box key={skill.label}>
+                                    <Box
+                                        key={`${displayCategory}-${skill.label}`}
+                                    >
                                         <Box
                                             sx={skillsStyles.getSkillItemStyles(
-                                                index
+                                                index,
+                                                isTransitioning
                                             )}
                                         >
                                             <Box
@@ -179,10 +218,22 @@ const Skills: React.FC = () => {
                                             </Typography>
                                         </Box>
                                     </Box>
-                                ))}
-                            </Box>
+                                ))
+                            ) : (
+                                <Box
+                                    sx={{
+                                        height: '200px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'rgba(255,255,255,0.5)',
+                                    }}
+                                >
+                                    Choose a category above to view skills
+                                </Box>
+                            )}
                         </Box>
-                    )}
+                    </Box>
                 </Box>
             </Box>
         </Box>

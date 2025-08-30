@@ -55,7 +55,7 @@ const App: React.FC = () => {
 
     return (
         <Box sx={appStyles.getAppContainerStyles()}>
-            <TransitionGroup style={appStyles.getTransitionGroupStyles()}>
+            <TransitionGroup>
                 <CSSTransition
                     key={currentPage}
                     timeout={300}

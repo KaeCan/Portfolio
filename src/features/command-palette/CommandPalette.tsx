@@ -322,12 +322,6 @@ const CustomCommandPalette: React.FC<CustomCommandPaletteProps> = ({
                                 </Typography>
                             </Box>
                         </Box>
-                        <Typography
-                            variant="caption"
-                            sx={commandPaletteStyles.getFooterBrandStyles()}
-                        >
-                            Kyle Chan Portfolio
-                        </Typography>
                     </Box>
                 </Box>
             </Fade>

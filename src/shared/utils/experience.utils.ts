@@ -8,7 +8,7 @@ export const calculateTotalHours = (experiences: ExperienceItem[]): number => {
     const sortedExperiences = [...experiences].sort((a, b) => {
         const aStart = parseDate(a.duration.split(' - ')[0]);
         const bStart = parseDate(b.duration.split(' - ')[0]);
-        
+
         if (!aStart || !bStart) return 0;
         return aStart.getTime() - bStart.getTime();
     });
