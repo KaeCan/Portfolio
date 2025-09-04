@@ -141,11 +141,11 @@ const CustomCommandPalette: React.FC<CustomCommandPaletteProps> = ({
         setSelectedIndex(0);
     }, [search]);
 
-    useEffect(() => {
-        if (isOpen && inputRef.current) {
+    const handleFadeEntered = useCallback(() => {
+        if (inputRef.current) {
             inputRef.current.focus();
         }
-    }, [isOpen]);
+    }, []);
 
     useEffect(() => {
         if (!isOpen) {
@@ -187,7 +187,7 @@ const CustomCommandPalette: React.FC<CustomCommandPaletteProps> = ({
             }}
             sx={commandPaletteStyles.getModalStyles()}
         >
-            <Fade in={isOpen} timeout={300}>
+            <Fade in={isOpen} timeout={300} onEntered={handleFadeEntered}>
                 <Box
                     sx={commandPaletteStyles.getCommandPaletteContainerStyles()}
                 >
