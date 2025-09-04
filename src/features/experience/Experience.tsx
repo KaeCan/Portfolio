@@ -71,11 +71,32 @@ const Experience: React.FC = () => {
                                     </Box>
                                 </Box>
 
-                                <Typography
-                                    sx={experienceStyles.getExperienceDescriptionStyles()}
-                                >
-                                    {exp.description}
-                                </Typography>
+                                {exp.summary && (
+                                    <Typography
+                                        sx={experienceStyles.getExperienceSummaryStyles()}
+                                    >
+                                        {exp.summary}
+                                    </Typography>
+                                )}
+
+                                {Array.isArray(exp.description) ? (
+                                    <Box sx={experienceStyles.getExperienceDescriptionListStyles()}>
+                                        {exp.description.map((bullet, bulletIndex) => (
+                                            <Typography
+                                                key={bulletIndex}
+                                                sx={experienceStyles.getExperienceDescriptionBulletStyles()}
+                                            >
+                                                • {bullet}
+                                            </Typography>
+                                        ))}
+                                    </Box>
+                                ) : (
+                                    <Typography
+                                        sx={experienceStyles.getExperienceDescriptionStyles()}
+                                    >
+                                        {exp.description}
+                                    </Typography>
+                                )}
 
                                 <Box
                                     sx={experienceStyles.getTechContainerStyles()}

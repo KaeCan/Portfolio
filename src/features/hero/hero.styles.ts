@@ -1,6 +1,7 @@
-import type { SxProps, Theme } from '@mui/material';
+import type { StyleObject } from '../../shared/types';
+import appStyles from '../../shared/styles/app.styles';
 
-const getHeroSectionStyles = (): SxProps<Theme> => ({
+const getHeroSectionStyles = (): StyleObject => ({
     height: '100vh',
     display: 'flex',
     alignItems: 'center',
@@ -27,33 +28,37 @@ const getHeroSectionStyles = (): SxProps<Theme> => ({
     },
 });
 
-const getHeroContainerStyles = (): SxProps<Theme> => ({
+const getHeroContainerStyles = (): StyleObject => ({
     maxWidth: '64rem',
     mx: 'auto',
     px: 2,
     textAlign: 'center',
 });
 
-const getProfileImageContainerStyles = (): SxProps<Theme> => ({
+const getProfileImageContainerStyles = (): StyleObject => ({
     mb: 4,
     opacity: 0,
     transform: 'translateY(-30px)',
     transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
-const getProfileImageOuterStyles = (): SxProps<Theme> => ({
+const getProfileImageOuterStyles = (): StyleObject => ({
     width: 128,
     height: 128,
     mx: 'auto',
     borderRadius: '50%',
     background: 'linear-gradient(135deg, #3b82f6, #9333ea)',
     padding: '4px',
-    backdropFilter: 'blur(20px)',
-    boxShadow:
-        '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+    ...appStyles.getGlassmorphismBase({
+        opacity: 0.1,
+        blur: 20,
+        borderRadius: '50%',
+        borderOpacity: 0.1,
+        shadowIntensity: 'medium'
+    }),
 });
 
-const getProfileImageInnerStyles = (): SxProps<Theme> => ({
+const getProfileImageInnerStyles = (): StyleObject => ({
     width: '100%',
     height: '100%',
     borderRadius: '50%',
@@ -63,7 +68,7 @@ const getProfileImageInnerStyles = (): SxProps<Theme> => ({
     justifyContent: 'center',
 });
 
-const getMainHeadingStyles = (): SxProps<Theme> => ({
+const getMainHeadingStyles = (): StyleObject => ({
     fontSize: { xs: '3rem', md: '4.5rem' },
     fontWeight: 'bold',
     color: '#f1f5f9',
@@ -73,14 +78,14 @@ const getMainHeadingStyles = (): SxProps<Theme> => ({
     transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
-const getNameGradientStyles = (): SxProps<Theme> => ({
+const getNameGradientStyles = (): StyleObject => ({
     background: 'linear-gradient(135deg, #2563eb, #9333ea)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     color: 'transparent',
 });
 
-const getSubtitleStyles = (): SxProps<Theme> => ({
+const getSubtitleStyles = (): StyleObject => ({
     fontSize: { xs: '1.25rem', md: '1.5rem' },
     color: '#cbd5e1',
     mb: 4,
@@ -90,29 +95,30 @@ const getSubtitleStyles = (): SxProps<Theme> => ({
     transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
-const getCommandHintContainerStyles = (): SxProps<Theme> => ({
+const getCommandHintContainerStyles = (): StyleObject => ({
     mb: 6,
     opacity: 0,
     transform: 'translateY(30px)',
     transition: 'opacity 0.8s ease, transform 0.8s ease',
 });
 
-const getCommandHintStyles = (): SxProps<Theme> => ({
+const getCommandHintStyles = (): StyleObject => ({
     display: 'inline-flex',
     alignItems: 'center',
     gap: 1,
     px: 3,
     py: 1.5,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(20px)',
-    border: '1px solid rgba(255, 255, 255, 0.15)',
-    borderRadius: '9999px',
     color: 'rgba(255, 255, 255, 0.9)',
-    boxShadow:
-        '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+    ...appStyles.getGlassmorphismBase({
+        opacity: 0.08,
+        blur: 20,
+        borderRadius: '9999px',
+        borderOpacity: 0.15,
+        shadowIntensity: 'light'
+    }),
 });
 
-const getKbdStyles = (): SxProps<Theme> => ({
+const getKbdStyles = (): StyleObject => ({
     px: 1,
     py: 0.5,
     fontSize: '0.75rem',
@@ -123,7 +129,7 @@ const getKbdStyles = (): SxProps<Theme> => ({
     borderRadius: '0.25rem',
 });
 
-const getKbdContainerStyles = (): SxProps<Theme> => ({
+const getKbdContainerStyles = (): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     gap: 0.5,

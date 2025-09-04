@@ -1,29 +1,6 @@
 {
     "projects": [
         {
-            "id": 1,
-            "title": "E-Commerce Platform",
-            "description": "A full-stack e-commerce solution built with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.",
-            "technologies": [
-                "React",
-                "TypeScript",
-                "Node.js",
-                "PostgreSQL",
-                "Stripe"
-            ],
-            "githubUrl": "https://github.com/yourusername/ecommerce",
-            "liveUrl": "https://yourproject.com"
-        },
-        {
-            "id": 2,
-            "title": "Task Management App",
-            "description": "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-            "technologies": ["React", "Firebase", "Material-UI", "Socket.io"],
-            "githubUrl": "https://github.com/yourusername/taskapp",
-            "liveUrl": "https://yourtaskapp.com"
-        },
-        {
-            "id": 3,
             "title": "Weather Dashboard",
             "description": "A responsive weather dashboard that displays current conditions, forecasts, and interactive maps using multiple weather APIs.",
             "technologies": [
@@ -32,13 +9,11 @@
                 "Tailwind CSS",
                 "Chart.js"
             ],
-            "githubUrl": "https://github.com/yourusername/weather",
             "liveUrl": "https://yourweatherapp.com"
         },
         {
-            "id": 4,
             "title": "Portfolio Website",
-            "description": "This very portfolio website built with Astro, React, and TypeScript, featuring dark mode, responsive design, and smooth animations.",
+            "description": "This very portfolio website was built with Astro, React, and TypeScript, featuring responsive design, a custom command palette, and glassmorphism styling.",
             "technologies": ["Astro", "React", "TypeScript", "Material-UI"],
             "githubUrl": "https://github.com/yourusername/portfolio",
             "liveUrl": "https://yourportfolio.com"

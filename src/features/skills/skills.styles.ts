@@ -1,12 +1,12 @@
-import type { SxProps, Theme } from '@mui/material';
-import type { SkillCategory } from '../../shared/types';
+import type { SkillCategory, StyleObject } from '../../shared/types';
+import appStyles from '../../shared/styles/app.styles';
 
 interface CategoryColors {
     from: string;
     to: string;
 }
 
-const getSkillsSectionStyles = (isExpanded: boolean): SxProps<Theme> => ({
+const getSkillsSectionStyles = (isExpanded: boolean): StyleObject => ({
     minHeight: '100vh',
     position: 'relative',
     overflow: 'auto',
@@ -25,7 +25,7 @@ const getSkillsSectionStyles = (isExpanded: boolean): SxProps<Theme> => ({
     },
 });
 
-const getSkillsMainContainerStyles = (): SxProps<Theme> => ({
+const getSkillsMainContainerStyles = (): StyleObject => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -43,7 +43,7 @@ const getSkillsMainContainerStyles = (): SxProps<Theme> => ({
 
 const getCategoryTilesContainerStyles = (
     isExpanded: boolean
-): SxProps<Theme> => ({
+): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -56,7 +56,7 @@ const getCategoryTilesContainerStyles = (
     },
 });
 
-const getCategoryContainerStyles = (): SxProps<Theme> => ({
+const getCategoryContainerStyles = (): StyleObject => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -91,7 +91,7 @@ const getCategoryTileStyles = (
     isExpanded: boolean,
     isSelected: boolean,
     isOtherSelected: boolean
-): SxProps<Theme> => {
+): StyleObject => {
     const colors = getCategoryColors(category.key);
 
     return {
@@ -112,16 +112,19 @@ const getCategoryTileStyles = (
             sm: '1.25rem',
             md: '1.5rem',
         },
-        background: `linear-gradient(135deg, ${colors.from}40, ${colors.to}40)`,
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
+        // Use a flat color for background to allow smooth transitions
+        ...appStyles.getGlassmorphismBase({
+            opacity: 0.08,
+            blur: 20,
+            borderOpacity: 0.2,
+            shadowIntensity: 'medium',
+            backgroundColor: `${colors.from}40`
+        }),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         color: 'rgba(255, 255, 255, 0.95)',
-        boxShadow:
-            '0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
         transform: `scale(${getScale(isExpanded, isSelected, isOtherSelected)})`,
         opacity: getOpacity(isExpanded, isSelected, isOtherSelected),
         transition: 'all 800ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -133,14 +136,16 @@ const getCategoryTileStyles = (
         userSelect: 'none',
         touchAction: 'manipulation',
         '@media (hover: hover)': {
-            '&:hover': {
-                background: `linear-gradient(135deg, ${colors.from}60, ${colors.to}60)`,
-                transform: `scale(${getHoverScale(isExpanded, isSelected)})`,
-                boxShadow:
-                    '0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                outline: 'none',
-            },
+            ...(isSelected ? {} : {
+                '&:hover': {
+                    transform: `scale(${getHoverScale(isExpanded, isSelected)})`,
+                    ...appStyles.getGlassmorphismHover({
+                        hoverIntensity: 'medium',
+                        backgroundColor: `${colors.from}40`
+                    }),
+                    outline: 'none',
+                },
+            }),
         },
         '&:focus': {
             outline: 'none',
@@ -157,7 +162,7 @@ const getCategoryTileStyles = (
     };
 };
 
-const getSkillsDisplayAreaStyles = (isExpanded: boolean): SxProps<Theme> => ({
+const getSkillsDisplayAreaStyles = (isExpanded: boolean): StyleObject => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -181,56 +186,48 @@ const getSkillsDisplayAreaStyles = (isExpanded: boolean): SxProps<Theme> => ({
     },
 });
 
-const getSkillsCardStyles = (): SxProps<Theme> => ({
+const getSkillsCardStyles = (): StyleObject => ({
     width: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(24px)',
-    border: '1px solid rgba(255, 255, 255, 0.15)',
-    borderRadius: {
-        xs: '1.5rem',
-        sm: '1.75rem',
-        md: '2rem',
-    },
+    ...appStyles.getGlassmorphismBase({
+        opacity: 0.08,
+        blur: 24,
+        borderOpacity: 0.15,
+        shadowIntensity: 'medium'
+    }),
     padding: {
         xs: '1.5rem',
         sm: '1.75rem',
         md: '2rem',
     },
-    boxShadow:
-        '0 20px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
 });
 
 const getSkillItemStyles = (
     index: number,
     isTransitioning: boolean = false
-): SxProps<Theme> => ({
+): StyleObject => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    marginBottom: '0.1rem',
     padding: {
         xs: '0.75rem',
         sm: '1rem',
     },
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    backdropFilter: 'blur(12px)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    borderRadius: {
-        xs: '0.75rem',
-        sm: '1rem',
-    },
-    boxShadow:
-        '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+    ...appStyles.getGlassmorphismBase({
+        opacity: 0.06,
+        blur: 12,
+        borderOpacity: 0.1,
+        shadowIntensity: 'light'
+    }),
+    borderRadius: '1rem',
     transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
     animation: isTransitioning
-        ? `skillSlideOut 150ms cubic-bezier(0.4, 0, 0.2, 1) ${index * 15}ms both`
+        ? `skillSlideOut 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms both`
         : `skillSlideIn 600ms cubic-bezier(0.4, 0, 0.2, 1) ${500 + index * 60}ms both`,
     '@media (hover: hover)': {
         '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            ...appStyles.getGlassmorphismHover({ hoverIntensity: 'subtle' }),
             transform: 'scale(1.05) translateY(-2px)',
-            boxShadow:
-                '0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
         },
     },
     '@media (hover: none)': {
@@ -269,12 +266,12 @@ const getSkillItemStyles = (
 
 const getCategoryColors = (categoryKey: string): CategoryColors => {
     const colors: Record<string, CategoryColors> = {
-        frontend: { from: '#3b82f6', to: '#06b6d4' },
-        backend: { from: '#10b981', to: '#059669' },
+        frameworks: { from: '#3b82f6', to: '#06b6d4' },
+        'languagesAndPlatforms': { from: '#10b981', to: '#059669' },
         tools: { from: '#8b5cf6', to: '#7c3aed' },
         other: { from: '#f97316', to: '#ef4444' },
     };
-    return colors[categoryKey] || colors.frontend;
+    return colors[categoryKey] || colors.frameworks;
 };
 
 const getScale = (
@@ -303,7 +300,7 @@ const getOpacity = (
     return 1;
 };
 
-const getCategoryIconContainerStyles = (): SxProps<Theme> => ({
+const getCategoryIconContainerStyles = (): StyleObject => ({
     mb: 1.5,
     '& svg': {
         width: {
@@ -319,7 +316,7 @@ const getCategoryIconContainerStyles = (): SxProps<Theme> => ({
     },
 });
 
-const getCategoryLabelStyles = (): SxProps<Theme> => ({
+const getCategoryLabelStyles = (): StyleObject => ({
     fontWeight: 'bold',
     fontSize: {
         xs: '0.875rem',
@@ -333,7 +330,7 @@ const getCategoryLabelStyles = (): SxProps<Theme> => ({
     },
 });
 
-const getSkillsTitleStyles = (): SxProps<Theme> => ({
+const getSkillsTitleStyles = (): StyleObject => ({
     fontSize: {
         xs: '1.25rem',
         sm: '1.375rem',
@@ -349,7 +346,7 @@ const getSkillsTitleStyles = (): SxProps<Theme> => ({
     textAlign: 'center',
 });
 
-const getSkillsGridStyles = (): SxProps<Theme> => ({
+const getSkillsGridStyles = (): StyleObject => ({
     display: 'grid',
     gridTemplateColumns: {
         xs: 'repeat(2, 1fr)',
@@ -383,12 +380,25 @@ const getSkillsGridStyles = (): SxProps<Theme> => ({
     },
 });
 
-const getSkillIconStyles = (): SxProps<Theme> => ({
+const getSkillIconStyles = (): StyleObject => ({
     fontSize: {
         xs: '1.5rem',
         sm: '1.75rem',
         md: '1.875rem',
     },
+    width: {
+        xs: '1.5rem',
+        sm: '1.75rem',
+        md: '1.875rem',
+    },
+    height: {
+        xs: '1.5rem',
+        sm: '1.75rem',
+        md: '1.875rem',
+    },
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     mb: {
         xs: 1,
         sm: 1.25,
@@ -396,7 +406,7 @@ const getSkillIconStyles = (): SxProps<Theme> => ({
     },
 });
 
-const getSkillLabelStyles = (): SxProps<Theme> => ({
+const getSkillLabelStyles = (): StyleObject => ({
     color: '#e2e8f0',
     fontWeight: 500,
     textAlign: 'center',

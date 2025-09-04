@@ -1,7 +1,8 @@
-import type { SxProps, Theme } from '@mui/material';
 import type React from 'react';
+import type { StyleObject } from '../../shared/types';
+import appStyles from '../../shared/styles/app.styles';
 
-const getModalStyles = (): SxProps<Theme> => ({
+const getModalStyles = (): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -18,22 +19,14 @@ const getBackdropStyles = (): {
     },
 });
 
-const getCommandPaletteContainerStyles = (): SxProps<Theme> => ({
+const getCommandPaletteContainerStyles = (): StyleObject => ({
     width: '100%',
     maxWidth: '640px',
     mx: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(24px)',
-    WebkitBackdropFilter: 'blur(24px)',
-    border: '1px solid rgba(255, 255, 255, 0.15)',
-    borderRadius: '16px',
-    boxShadow:
-        '0 20px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-    overflow: 'hidden',
-    outline: 'none',
+    ...appStyles.getGlassmorphismModal(),
 });
 
-const getSearchInputContainerStyles = (): SxProps<Theme> => ({
+const getSearchInputContainerStyles = (): StyleObject => ({
     borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
 });
 
@@ -54,27 +47,27 @@ const getSearchInputPlaceholderStyles = (): string => `
   }
 `;
 
-const getResultsContainerStyles = (): SxProps<Theme> => ({
+const getResultsContainerStyles = (): StyleObject => ({
     maxHeight: '400px',
     overflowY: 'auto',
     py: 1,
 });
 
-const getNoResultsContainerStyles = (): SxProps<Theme> => ({
+const getNoResultsContainerStyles = (): StyleObject => ({
     px: 2.5,
     py: 4,
     textAlign: 'center',
 });
 
-const getNoResultsTextStyles = (): SxProps<Theme> => ({
+const getNoResultsTextStyles = (): StyleObject => ({
     color: 'rgba(255, 255, 255, 0.6)',
 });
 
-const getGroupContainerStyles = (): SxProps<Theme> => ({
+const getGroupContainerStyles = (): StyleObject => ({
     mb: 1,
 });
 
-const getGroupHeadingStyles = (): SxProps<Theme> => ({
+const getGroupHeadingStyles = (): StyleObject => ({
     color: 'rgba(255, 255, 255, 0.6)',
     fontSize: '12px',
     fontWeight: 600,
@@ -85,7 +78,7 @@ const getGroupHeadingStyles = (): SxProps<Theme> => ({
     display: 'block',
 });
 
-const getCommandItemStyles = (isSelected: boolean): SxProps<Theme> => ({
+const getCommandItemStyles = (isSelected: boolean): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     gap: 1.5,
@@ -98,27 +91,31 @@ const getCommandItemStyles = (isSelected: boolean): SxProps<Theme> => ({
     fontSize: '14px',
     ...(isSelected && {
         backgroundColor: 'rgba(37, 99, 235, 0.3)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
+        ...appStyles.getGlassmorphismBase({
+            opacity: 0.3,
+            blur: 16,
+            borderRadius: '8px',
+            borderOpacity: 0.2,
+            shadowIntensity: 'light'
+        }),
         color: 'rgba(255, 255, 255, 0.95)',
         boxShadow:
             '0 6px 20px rgba(37, 99, 235, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     }),
 });
 
-const getCommandItemTextStyles = (): SxProps<Theme> => ({
+const getCommandItemTextStyles = (): StyleObject => ({
     fontSize: 'inherit',
     color: 'inherit',
 });
 
-const getCommandItemBadgeStyles = (): SxProps<Theme> => ({
+const getCommandItemBadgeStyles = (): StyleObject => ({
     ml: 'auto',
     color: 'rgba(255, 255, 255, 0.6)',
     fontSize: '12px',
 });
 
-const getFooterStyles = (): SxProps<Theme> => ({
+const getFooterStyles = (): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -127,34 +124,40 @@ const getFooterStyles = (): SxProps<Theme> => ({
     px: 2,
     py: 1,
     borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-    backgroundColor: 'rgba(255, 255, 255, 0.02)',
-    backdropFilter: 'blur(8px)',
+    ...appStyles.getGlassmorphismBase({
+        opacity: 0.02,
+        blur: 8,
+        borderRadius: 0,
+        borderOpacity: 0,
+        shadowIntensity: 'light'
+    }),
 });
 
-const getFooterControlsStyles = (): SxProps<Theme> => ({
+const getFooterControlsStyles = (): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     gap: 2,
 });
 
-const getFooterControlItemStyles = (): SxProps<Theme> => ({
+const getFooterControlItemStyles = (): StyleObject => ({
     display: 'flex',
     alignItems: 'center',
     gap: 0.5,
 });
 
-const getKbdStyles = (): SxProps<Theme> => ({
+const getKbdStyles = (): StyleObject => ({
     px: 0.75,
     py: 0.25,
     fontSize: '0.75rem',
     fontWeight: 600,
     color: 'rgba(255, 255, 255, 0.9)',
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(8px)',
-    border: '1px solid rgba(255, 255, 255, 0.15)',
-    borderRadius: '0.375rem',
-    boxShadow:
-        '0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+    ...appStyles.getGlassmorphismBase({
+        opacity: 0.08,
+        blur: 8,
+        borderRadius: '0.375rem',
+        borderOpacity: 0.15,
+        shadowIntensity: 'light'
+    }),
     fontFamily:
         'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
 });

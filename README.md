@@ -4,10 +4,10 @@ Personal portfolio website built with Astro, React, and TypeScript.
 
 ## Tech Stack
 
-- **Astro** - Static site generator
-- **React** - UI components
-- **TypeScript** - Type safety
-- **Material-UI** - Component library
+- **Astro**
+- **React**
+- **TypeScript**
+- **Material-UI**
 
 ## Development
 
@@ -53,3 +53,7 @@ src/
 ## License
 
 MIT
+
+## Acknowledgements
+
+All icons are from [Simple Icons](https://simpleicons.org), [SVG Repo](https://svgrepo.com), and [Material UI](https://mui.com). I do not own any of the SVGs.

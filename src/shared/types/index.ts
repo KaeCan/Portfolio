@@ -1,13 +1,15 @@
 export type PageType = 'home' | 'skills' | 'experience' | 'projects';
 
+export type StyleObject = Record<string, unknown>;
+
 export interface SkillItem {
     label: string;
     icon: string;
 }
 
 export interface SkillsData {
-    frontend: SkillItem[];
-    backend: SkillItem[];
+    frameworks: SkillItem[];
+    languagesAndPlatforms: SkillItem[];
     tools: SkillItem[];
     other: SkillItem[];
 }
@@ -18,7 +20,6 @@ export interface SkillCategory {
 }
 
 export interface Project {
-    id: number;
     title: string;
     description: string;
     technologies: string[];
@@ -31,7 +32,8 @@ export interface ExperienceItem {
     company: string;
     position: string;
     duration: string;
-    description: string;
+    summary?: string;
+    description: string | string[];
     technologies: string[];
 }
 
