@@ -5,6 +5,7 @@ Personal portfolio site built as a **content-driven Astro** project: static page
 ## Tech Stack
 
 - **Astro** (static output)
+- **Bun** (package manager / scripts)
 - **Content Collections** (JSON + Zod)
 - **TypeScript**
 - **React** (command palette island only)
@@ -12,12 +13,12 @@ Personal portfolio site built as a **content-driven Astro** project: static page
 ## Development
 
 ```bash
-npm install
-npm run dev
-npm run build
-npm run preview
-npm run lint
-npm run type-check
+bun install
+bun run dev
+bun run build
+bun run preview
+bun run lint
+bun run type-check
 ```
 
 ## Project Structure
