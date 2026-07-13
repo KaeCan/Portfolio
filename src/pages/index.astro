@@ -1,10 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import App from '../components/layout/App.tsx';
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+
+const siteEntry = await getEntry('site', 'site');
+if (!siteEntry) {
+    throw new Error('Missing site content entry');
+}
+
+const { name, role, description } = siteEntry.data;
 ---
 
-<Layout title="Kyle Chan - Full Stack Developer">
-    <main>
-        <App client:idle />
-    </main>
-</Layout>
+<BaseLayout
+    title={`${name} - ${role}`}
+    description={description}
+    currentPath="/"
+>
+    <Hero name={name} role={role} />
+</BaseLayout>

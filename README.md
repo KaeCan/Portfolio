@@ -1,33 +1,22 @@
 # Portfolio
 
-Personal portfolio website built with Astro, React, and TypeScript.
+Personal portfolio site built as a **content-driven Astro** project: static pages, typed content collections, and one small React island for the command palette.
 
 ## Tech Stack
 
-- **Astro**
-- **React**
+- **Astro** (static output)
+- **Content Collections** (JSON + Zod)
 - **TypeScript**
-- **Material-UI**
+- **React** (command palette island only)
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
-
-# Build for production
 npm run build
-
-# Preview production build
 npm run preview
-
-# Lint code
 npm run lint
-
-# Type checking
 npm run type-check
 ```
 
@@ -35,20 +24,20 @@ npm run type-check
 
 ```
 src/
-├── components/layout/    # Layout components
-├── features/            # Feature-based modules
-│   ├── hero/
-│   ├── skills/
-│   ├── projects/
-│   ├── experience/
-│   └── command-palette/
-├── shared/
-│   ├── data/           # JSON data files
-│   ├── styles/         # Global styles
-│   └── types/          # TypeScript types
-├── layouts/            # Astro layouts
-└── pages/             # Astro pages
+├── content.config.ts      # Collection schemas + loaders
+├── content/               # Experience, site data (+ projects data, page disabled)
+├── components/
+│   ├── ui/                # Static .astro sections
+│   ├── islands/           # Client islands (command palette)
+│   └── seo/
+├── layouts/
+│   └── BaseLayout.astro
+├── lib/                   # Shared pure helpers
+├── pages/                 # Routes (thin view controllers)
+└── styles/
 ```
+
+Adding a job, project, or skill means editing a file under `src/content/` — not a page component.
 
 ## License
 
@@ -56,4 +45,4 @@ MIT
 
 ## Acknowledgements
 
-All icons are from [Simple Icons](https://simpleicons.org), [SVG Repo](https://svgrepo.com), and [Material UI](https://mui.com). I do not own any of the SVGs.
+Icons from [Simple Icons](https://simpleicons.org) and [SVG Repo](https://svgrepo.com).

@@ -1,0 +1,19 @@
+[
+    {
+        "id": "weather-dashboard",
+        "title": "Weather Dashboard",
+        "description": "A responsive weather dashboard that displays current conditions, forecasts, and interactive maps using multiple weather APIs.",
+        "technologies": ["Vue.js", "TypeScript", "Tailwind CSS", "Chart.js"],
+        "liveUrl": "https://yourweatherapp.com",
+        "featured": true
+    },
+    {
+        "id": "portfolio-website",
+        "title": "Portfolio Website",
+        "description": "This portfolio site is built with Astro and TypeScript — content collections, static pages, and a small command-palette island.",
+        "technologies": ["Astro", "TypeScript", "React"],
+        "githubUrl": "https://github.com/KaeCan/Portfolio",
+        "liveUrl": "https://fireb.github.io/Portfolio",
+        "featured": true
+    }
+]

@@ -1,0 +1,33 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ExperienceSection from '../components/ui/Experience.astro';
+
+const siteEntry = await getEntry('site', 'site');
+if (!siteEntry) {
+    throw new Error('Missing site content entry');
+}
+
+const experienceEntries = await getCollection('experience');
+const experiences = experienceEntries
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(entry => ({
+        id: entry.data.id,
+        company: entry.data.company,
+        position: entry.data.position,
+        duration: entry.data.duration,
+        summary: entry.data.summary,
+        description: entry.data.description,
+        technologies: entry.data.technologies,
+    }));
+
+const { name, description, stats } = siteEntry.data;
+---
+
+<BaseLayout
+    title={`Experience - ${name}`}
+    description={description}
+    currentPath="/experience"
+>
+    <ExperienceSection experiences={experiences} stats={stats} />
+</BaseLayout>

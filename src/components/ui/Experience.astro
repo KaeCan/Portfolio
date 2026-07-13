@@ -1,0 +1,298 @@
+---
+import {
+    calculateTotalHours,
+    calculateYears,
+    formatExperienceDisplay,
+} from '../../lib/experience';
+
+interface ExperienceItem {
+    id: string;
+    company: string;
+    position: string;
+    duration: string;
+    summary?: string;
+    description: string | string[];
+    technologies: string[];
+}
+
+interface StatItem {
+    number: string;
+    label: string;
+}
+
+interface Props {
+    experiences: ExperienceItem[];
+    stats: StatItem[];
+}
+
+const { experiences, stats } = Astro.props;
+const totalHours = calculateTotalHours(experiences);
+const totalYears = calculateYears(totalHours);
+const initialDisplay = formatExperienceDisplay(totalHours, totalYears);
+const durations = experiences.map(exp => exp.duration);
+---
+
+<section class="experience">
+    <div class="experience__container">
+        <div class="experience__list">
+            {
+                experiences.map(exp => (
+                    <article class="experience__card glass">
+                        <div class="experience__header">
+                            <div>
+                                <h2 class="experience__position">
+                                    {exp.position}
+                                </h2>
+                                <p class="experience__company">{exp.company}</p>
+                            </div>
+                            <span class="experience__duration">
+                                {exp.duration}
+                            </span>
+                        </div>
+
+                        {exp.summary && (
+                            <p class="experience__summary">{exp.summary}</p>
+                        )}
+
+                        {Array.isArray(exp.description) ? (
+                            <ul class="experience__bullets">
+                                {exp.description.map(bullet => (
+                                    <li>{bullet}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p class="experience__description">
+                                {exp.description}
+                            </p>
+                        )}
+
+                        <div class="experience__tech">
+                            {exp.technologies.map(tech => (
+                                <span class="tech-chip">{tech}</span>
+                            ))}
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+
+        <div class="experience__stats">
+            <div class="experience__stat glass-light">
+                <p
+                    class="experience__stat-number"
+                    data-live-hours
+                    data-durations={JSON.stringify(durations)}
+                    set:html={initialDisplay}
+                />
+                <p class="experience__stat-label">Total Work Experience</p>
+            </div>
+
+            <div class="experience__stat-grid">
+                {
+                    stats.map(stat => (
+                        <div class="experience__stat glass-light">
+                            <p class="experience__stat-number">{stat.number}</p>
+                            <p class="experience__stat-label">{stat.label}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import {
+        calculateTotalHours,
+        calculateYears,
+        formatExperienceDisplay,
+    } from '../../lib/experience';
+
+    const el = document.querySelector<HTMLElement>('[data-live-hours]');
+    if (el) {
+        const durations = JSON.parse(el.dataset.durations ?? '[]') as string[];
+        const experiences = durations.map(duration => ({ duration }));
+
+        const update = () => {
+            const hours = calculateTotalHours(experiences);
+            const years = calculateYears(hours);
+            el.innerHTML = formatExperienceDisplay(hours, years);
+        };
+
+        update();
+        setInterval(update, 5000);
+    }
+</script>
+
+<style>
+    .experience {
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        overflow-y: auto;
+        padding: 2rem 0 4rem;
+    }
+
+    @media (min-width: 768px) {
+        .experience {
+            padding: 3rem 0 4rem;
+        }
+    }
+
+    .experience__container {
+        max-width: var(--page-max);
+        margin: 0 auto;
+        padding: 0 1rem;
+        width: 100%;
+    }
+
+    .experience__list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .experience__card {
+        padding: 2rem;
+        transition:
+            transform 300ms ease-out,
+            box-shadow 300ms ease-out;
+    }
+
+    .experience__card:hover {
+        transform: translateY(-0.5rem);
+        background-color: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .experience__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        gap: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+        .experience__header {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    .experience__position {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-bottom: 0.25rem;
+    }
+
+    .experience__company {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #60a5fa;
+    }
+
+    .experience__duration {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #1e3a8a;
+        color: #93c5fd;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        align-self: flex-start;
+    }
+
+    .experience__summary {
+        color: #94a3b8;
+        font-style: italic;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+        font-size: 0.95rem;
+    }
+
+    .experience__description {
+        color: #cbd5e1;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .experience__bullets {
+        list-style: none;
+        margin-bottom: 1.5rem;
+    }
+
+    .experience__bullets li {
+        color: #cbd5e1;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        position: relative;
+    }
+
+    .experience__bullets li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+    }
+
+    .experience__tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .experience__stats {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .experience__stats {
+            grid-template-columns: 1fr 2fr;
+        }
+    }
+
+    .experience__stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .experience__stat-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .experience__stat {
+        text-align: center;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 7.5rem;
+        transition: transform 300ms ease-out;
+    }
+
+    .experience__stat:hover {
+        transform: translateY(-2px);
+    }
+
+    .experience__stat-number {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #60a5fa;
+        margin-bottom: 0.5rem;
+    }
+
+    .experience__stat-label {
+        color: #cbd5e1;
+        font-size: 0.875rem;
+    }
+</style>
