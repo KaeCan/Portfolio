@@ -43,7 +43,14 @@ const normalizedPath = normalizePath(currentPath, base);
             rel="stylesheet"
         />
         <script is:inline>
-            document.documentElement.classList.add('dark');
+            (function () {
+                try {
+                    var theme = localStorage.getItem('portfolio-theme');
+                    if (theme && theme !== 'mocha') {
+                        document.documentElement.dataset.theme = theme;
+                    }
+                } catch (e) {}
+            })();
         </script>
     </head>
     <body>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { ExperienceDuration } from '@/types/content';
 import {
     getExperienceMetrics,
     type ExperienceMetrics,
@@ -6,7 +7,7 @@ import {
 
 const TICK_MS = 5000;
 
-const toDurations = (durations: string[]) =>
+const toDurations = (durations: string[]): ExperienceDuration[] =>
     durations.map(duration => ({ duration }));
 
 export function useLiveExperienceHours(durations: string[]): ExperienceMetrics {

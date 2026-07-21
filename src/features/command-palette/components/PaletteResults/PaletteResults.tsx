@@ -39,6 +39,10 @@ export function PaletteResults({
                         {group.items.map(item => {
                             const index = itemIndex++;
                             const isSelected = index === selectedIndex;
+                            const badge =
+                                item.kind === 'submenu'
+                                    ? `${item.badge ?? item.submenu} ›`
+                                    : item.badge;
 
                             return (
                                 <Item
@@ -55,7 +59,7 @@ export function PaletteResults({
                                 >
                                     <Icon name={item.icon} />
                                     <span>{item.label}</span>
-                                    {item.badge && <Badge>{item.badge}</Badge>}
+                                    {badge && <Badge>{badge}</Badge>}
                                 </Item>
                             );
                         })}

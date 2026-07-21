@@ -37,7 +37,7 @@ export const Stat = styled(GlassLight)({
 export const StatNumber = styled('p')({
     fontSize: '1.875rem',
     fontWeight: 700,
-    color: 'var(--color-primary-light)',
+    color: 'var(--color-accent)',
     marginBottom: '0.5rem',
 });
 

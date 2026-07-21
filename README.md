@@ -26,10 +26,10 @@ bun run type-check
 
 ## Routes
 
-| Route         | Feature        | Hydration        |
-| ------------- | -------------- | ---------------- |
-| `/`           | `hero`         | None (static)    |
-| `/experience` | `experience`   | `client:visible` |
+| Route         | Feature      | Hydration        |
+| ------------- | ------------ | ---------------- |
+| `/`           | `hero`       | None (static)    |
+| `/experience` | `experience` | `client:visible` |
 
 Global chrome: `command-palette` in `BaseLayout.astro` with `client:load`.
 
@@ -71,19 +71,19 @@ Adding a job or site stat means editing a file under `src/content/` — not a pa
 
 ## Content Collections
 
-| Collection            | Status    | Notes                                      |
-| --------------------- | --------- | ------------------------------------------ |
-| `experience`          | Active    | Work history on `/experience`              |
-| `site`                | Active    | Name, role, nav, social, stats             |
-| `projects`            | Scaffold  | JSON + `features/projects/` — no route yet |
-| `detailedExperience`  | Reserved  | Markdown for future AI-curated resume variants |
+| Collection           | Status   | Notes                                          |
+| -------------------- | -------- | ---------------------------------------------- |
+| `experience`         | Active   | Work history on `/experience`                  |
+| `site`               | Active   | Name, role, nav, social, stats                 |
+| `projects`           | Scaffold | JSON + `features/projects/` — no route yet     |
+| `detailedExperience` | Reserved | Markdown for future AI-curated resume variants |
 
 ## Hydration
 
-| UI                     | Directive        | Location                          |
-| ---------------------- | ---------------- | --------------------------------- |
-| Command palette        | `client:load`    | `layouts/BaseLayout.astro`        |
-| Live experience hours  | `client:visible` | `pages/experience.astro`          |
+| UI                    | Directive        | Location                   |
+| --------------------- | ---------------- | -------------------------- |
+| Command palette       | `client:load`    | `layouts/BaseLayout.astro` |
+| Live experience hours | `client:visible` | `pages/experience.astro`   |
 
 Static features (`hero`, cards, grids) ship without `client:*`. The hero page uses a tiny inline `<script>` only to swap the ⌘/Ctrl key label — see portfolio-architecture skill for when that exception applies.
 

@@ -1,4 +1,5 @@
 @import './tokens.css';
+@import './themes.css';
 
 *,
 *::before,
@@ -31,12 +32,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
+    background: var(--color-accent);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary-dark);
+    background: var(--color-accent-secondary);
 }
 
 :focus-visible {
@@ -57,12 +58,22 @@ body {
 }
 
 .app-shell {
-    background: var(--gradient-shell);
-    background-size: 200% 200%;
-    animation: gradient-shift 15s ease infinite;
+    background: var(--color-bg);
     min-height: 100vh;
     width: 100%;
     position: relative;
+    isolation: isolate;
+}
+
+.app-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--gradient-shell);
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+    opacity: var(--shell-gradient-opacity);
 }
 
 .page-enter {

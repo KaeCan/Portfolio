@@ -23,6 +23,8 @@ export const GithubBtn = styled('a')({
     transition: 'transform 300ms ease-out, background-color 300ms ease-out',
     '&:hover': {
         transform: 'translateY(-2px)',
-        backgroundColor: 'var(--glass-bg-hover)',
+        backgroundColor: 'var(--color-interactive-bg)',
+        borderColor: 'var(--glass-border-accent)',
+        color: 'var(--color-accent)',
     },
 });

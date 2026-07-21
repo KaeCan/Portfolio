@@ -8,6 +8,7 @@ import {
     LuHouse,
     LuMail,
     LuMenu,
+    LuPalette,
     LuUser,
 } from 'react-icons/lu';
 import { SiGithub } from 'react-icons/si';
@@ -23,6 +24,7 @@ const icons: Record<IconName, IconType> = {
     link: LuExternalLink,
     menu: LuMenu,
     user: LuUser,
+    palette: LuPalette,
 };
 
 interface Props {

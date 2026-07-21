@@ -1,8 +1,13 @@
 import type { JSX } from 'react';
 import { Kbd } from '@/components/ui/shared/Kbd.styles';
+import type { PaletteView } from '../../types';
 import { Footer, Hint } from './PaletteFooter.styles';
 
-export function PaletteFooter(): JSX.Element {
+interface Props {
+    view: PaletteView;
+}
+
+export function PaletteFooter({ view }: Props): JSX.Element {
     return (
         <Footer>
             <Hint>
@@ -12,7 +17,7 @@ export function PaletteFooter(): JSX.Element {
                 <Kbd>↵</Kbd> to select
             </Hint>
             <Hint>
-                <Kbd>esc</Kbd> to close
+                <Kbd>esc</Kbd> {view === 'themes' ? 'to go back' : 'to close'}
             </Hint>
         </Footer>
     );

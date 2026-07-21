@@ -12,7 +12,7 @@ export const Card = styled('article')({
     '&:hover': {
         transform: 'translateY(-0.5rem)',
         backgroundColor: 'var(--glass-bg-hover)',
-        borderColor: 'var(--glass-border-hover)',
+        borderColor: 'var(--glass-border-accent)',
     },
 });
 
@@ -38,14 +38,14 @@ export const Position = styled('h2')({
 export const Company = styled('p')({
     fontSize: '1.125rem',
     fontWeight: 600,
-    color: 'var(--color-primary-light)',
+    color: 'var(--color-accent)',
 });
 
 export const Duration = styled('span')({
     display: 'inline-block',
     padding: '0.5rem 1rem',
-    backgroundColor: 'var(--color-primary-surface)',
-    color: 'var(--color-primary-muted)',
+    backgroundColor: 'var(--color-accent-surface)',
+    color: 'var(--color-accent)',
     borderRadius: '9999px',
     fontSize: '0.875rem',
     fontWeight: 500,
@@ -81,6 +81,7 @@ export const BulletItem = styled('li')({
         content: '"•"',
         position: 'absolute',
         left: 0,
+        color: 'var(--color-accent)',
     },
 });
 

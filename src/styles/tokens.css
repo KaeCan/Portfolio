@@ -1,64 +1,88 @@
 /*
  * Design tokens — runtime source of truth for theming.
- * Presets override these via [data-theme="…"] (future theme picker).
+ * Presets override these via [data-theme="…"] in themes.css.
  */
 :root {
     /* Brand */
-    --color-primary: #3b82f6;
-    --color-primary-dark: #1e40af;
-    --color-primary-light: #60a5fa;
-    --color-primary-muted: #93c5fd;
-    --color-primary-surface: #1e3a8a;
-    --color-accent: #0ea5e9;
-    --color-accent-secondary: #9333ea;
+    --color-primary: #cba6f7;
+    --color-primary-dark: #a78bda;
+    --color-primary-light: #d9bcfa;
+    --color-primary-muted: #c4a0e8;
+    --color-primary-surface: #45475a;
+    --color-accent: #f5c2e7;
+    --color-accent-secondary: #89b4fa;
 
     /* Text */
-    --color-text-primary: #f8fafc;
-    --color-text-heading: #f1f5f9;
-    --color-text-secondary: #cbd5e1;
-    --color-text-muted: #94a3b8;
-    --color-text-placeholder: #9ca3af;
-    --color-text-on-glass: rgba(255, 255, 255, 0.9);
-    --color-text-on-glass-soft: rgba(255, 255, 255, 0.8);
-    --color-text-on-glass-strong: rgba(255, 255, 255, 0.95);
-    --color-text-on-glass-muted: rgba(255, 255, 255, 0.6);
-    --color-text-on-glass-subtle: rgba(255, 255, 255, 0.5);
+    --color-text-primary: #cdd6f4;
+    --color-text-heading: #cdd6f4;
+    --color-text-secondary: #bac2de;
+    --color-text-muted: #9399b2;
+    --color-text-placeholder: #7f849c;
+    --color-text-on-glass: rgba(205, 214, 244, 0.92);
+    --color-text-on-glass-soft: rgba(205, 214, 244, 0.82);
+    --color-text-on-glass-strong: rgba(205, 214, 244, 0.97);
+    --color-text-on-glass-muted: rgba(205, 214, 244, 0.6);
+    --color-text-on-glass-subtle: rgba(205, 214, 244, 0.5);
 
     /* Surfaces */
-    --color-bg: #0f172a;
-    --color-surface: #1e293b;
-    --color-surface-muted: #374151;
+    --color-bg: #1e1e2e;
+    --color-surface: #313244;
+    --color-surface-muted: #45475a;
 
     /* Glass */
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-bg-light: rgba(255, 255, 255, 0.06);
-    --glass-bg-hover: rgba(255, 255, 255, 0.12);
-    --glass-bg-strong: rgba(255, 255, 255, 0.1);
-    --glass-bg-strong-hover: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-border-subtle: rgba(255, 255, 255, 0.1);
-    --glass-border-hover: rgba(255, 255, 255, 0.25);
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-bg-light: rgba(255, 255, 255, 0.05);
+    --glass-bg-hover: rgba(255, 255, 255, 0.11);
+    --glass-bg-strong: rgba(255, 255, 255, 0.09);
+    --glass-bg-strong-hover: rgba(255, 255, 255, 0.14);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-border-subtle: rgba(255, 255, 255, 0.09);
+    --glass-border-hover: rgba(255, 255, 255, 0.22);
     --glass-blur: 24px;
     --glass-blur-sm: 16px;
     --glass-inset-highlight: rgba(255, 255, 255, 0.1);
-    --glass-inset-highlight-soft: rgba(255, 255, 255, 0.08);
+    --glass-inset-highlight-soft: rgba(255, 255, 255, 0.07);
     --glass-inset-highlight-strong: rgba(255, 255, 255, 0.15);
 
     /* Interactive */
-    --color-interactive-bg: rgba(37, 99, 235, 0.3);
-    --color-interactive-bg-hover: rgba(37, 99, 235, 0.4);
-    --color-interactive-shadow: rgba(37, 99, 235, 0.2);
+    --color-interactive-bg: color-mix(
+        in srgb,
+        var(--color-accent) 28%,
+        transparent
+    );
+    --color-interactive-bg-hover: color-mix(
+        in srgb,
+        var(--color-accent) 38%,
+        transparent
+    );
+    --color-interactive-shadow: color-mix(
+        in srgb,
+        var(--color-accent) 22%,
+        transparent
+    );
+
+    /* Accent */
+    --color-accent-surface: color-mix(
+        in srgb,
+        var(--color-accent) 16%,
+        var(--color-surface)
+    );
+    --glass-border-accent: color-mix(
+        in srgb,
+        var(--color-accent) 40%,
+        var(--glass-border)
+    );
 
     /* Overlay */
-    --color-overlay: rgba(0, 0, 0, 0.5);
+    --color-overlay: rgba(0, 0, 0, 0.55);
     --color-overlay-transparent: rgba(0, 0, 0, 0);
 
     /* Shadows */
     --shadow-glass:
-        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 20px 40px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 var(--glass-inset-highlight);
     --shadow-glass-sm:
-        0 8px 24px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.14),
         inset 0 1px 0 var(--glass-inset-highlight-soft);
     --shadow-interactive:
         0 6px 20px var(--color-interactive-shadow),
@@ -68,6 +92,7 @@
     --gradient-avatar: linear-gradient(
         135deg,
         var(--color-primary),
+        var(--color-accent),
         var(--color-accent-secondary)
     );
     --gradient-shell: linear-gradient(
@@ -79,12 +104,13 @@
         var(--shell-5),
         var(--shell-6)
     );
-    --shell-1: #77528d;
-    --shell-2: #4b3c6e;
-    --shell-3: #2d3a4e;
-    --shell-4: #24354f;
-    --shell-5: #23345a;
-    --shell-6: #364a75;
+    --shell-1: var(--color-accent);
+    --shell-2: var(--color-primary);
+    --shell-3: var(--color-accent-secondary);
+    --shell-4: var(--color-surface-muted);
+    --shell-5: var(--color-surface);
+    --shell-6: var(--color-bg);
+    --shell-gradient-opacity: 0.4;
 
     /* Layout */
     --page-max: 64rem;

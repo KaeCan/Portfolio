@@ -15,7 +15,7 @@ export const Card = styled('article')({
     '&:hover': {
         transform: 'translateY(-0.75rem)',
         backgroundColor: 'var(--glass-bg-hover)',
-        borderColor: 'var(--glass-border-hover)',
+        borderColor: 'var(--glass-border-accent)',
     },
 });
 
@@ -91,7 +91,7 @@ export const Btn = styled('a')({
 export const BtnPrimary = styled(Btn)({
     backgroundColor: 'var(--color-interactive-bg)',
     color: 'var(--color-text-heading)',
-    border: '1px solid var(--glass-border)',
+    border: '1px solid var(--glass-border-accent)',
     '&:hover': {
         backgroundColor: 'var(--color-interactive-bg-hover)',
         transform: 'translateY(-2px)',
@@ -103,7 +103,8 @@ export const BtnSecondary = styled(Btn)({
     color: 'var(--color-text-heading)',
     border: '1px solid var(--glass-border)',
     '&:hover': {
-        backgroundColor: 'var(--glass-bg-hover)',
+        backgroundColor: 'var(--color-interactive-bg)',
+        borderColor: 'var(--glass-border-accent)',
         transform: 'translateY(-2px)',
     },
 });

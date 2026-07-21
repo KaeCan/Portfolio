@@ -1,16 +1,32 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useTheme } from '@/hooks/useTheme';
+import { THEME_PRESETS } from '@/types/theme';
 import { isMacPlatform } from '@/utils/platform';
 import type {
     FlatPaletteItem,
     PaletteGroup,
+    PaletteView,
+    SubmenuPaletteItem,
+    ThemePaletteItem,
     UseCommandPaletteOptions,
     UseCommandPaletteResult,
 } from '../types';
+
+const CHANGE_THEME_ITEM: SubmenuPaletteItem = {
+    kind: 'submenu',
+    id: 'change-theme',
+    label: 'Change Theme',
+    icon: 'palette',
+    submenu: 'themes',
+    badge: 'Themes',
+};
 
 export function useCommandPalette({
     commands,
     currentPath,
 }: UseCommandPaletteOptions): UseCommandPaletteResult {
+    const { themeId, setTheme } = useTheme();
+    const [view, setView] = useState<PaletteView>('commands');
     const [isOpen, setIsOpen] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
@@ -24,6 +40,7 @@ export function useCommandPalette({
             id: 'navigation',
             heading: 'Navigation',
             items: commands.navigation.map(item => ({
+                kind: 'link' as const,
                 id: item.id,
                 label:
                     currentPath === item.path ? item.currentLabel : item.label,
@@ -35,6 +52,7 @@ export function useCommandPalette({
             id: 'social',
             heading: 'Social & Contact',
             items: commands.social.map(item => ({
+                kind: 'link' as const,
                 id: item.id,
                 label: item.label,
                 href: item.href,
@@ -46,14 +64,18 @@ export function useCommandPalette({
         {
             id: 'actions',
             heading: 'Actions',
-            items: commands.actions.map(item => ({
-                id: item.id,
-                label: item.label,
-                href: item.href,
-                icon: item.icon,
-                external: item.external,
-                badge: item.external ? 'Link' : 'Action',
-            })),
+            items: [
+                ...commands.actions.map(item => ({
+                    kind: 'link' as const,
+                    id: item.id,
+                    label: item.label,
+                    href: item.href,
+                    icon: item.icon,
+                    external: item.external,
+                    badge: item.external ? 'Link' : 'Action',
+                })),
+                CHANGE_THEME_ITEM,
+            ],
         },
     ];
 
@@ -68,7 +90,17 @@ export function useCommandPalette({
         }))
         .filter(group => group.items.length > 0);
 
-    const allItems = filteredGroups.flatMap(group => group.items);
+    const themeItems: ThemePaletteItem[] = THEME_PRESETS.filter(preset =>
+        preset.label.toLowerCase().includes(search.toLowerCase())
+    ).map(preset => ({
+        id: preset.id,
+        label: preset.label,
+        swatches: preset.swatches,
+        isActive: preset.id === themeId,
+    }));
+
+    const commandItems = filteredGroups.flatMap(group => group.items);
+    const allItems = view === 'themes' ? themeItems : commandItems;
 
     const open = useCallback((): void => {
         setIsOpen(true);
@@ -83,6 +115,13 @@ export function useCommandPalette({
     }, []);
 
     const runItem = useCallback((item: FlatPaletteItem): void => {
+        if (item.kind === 'submenu') {
+            setView('themes');
+            setSearch('');
+            setSelectedIndex(0);
+            return;
+        }
+
         if (item.external) {
             window.open(item.href, '_blank', 'noopener,noreferrer');
         } else {
@@ -90,6 +129,13 @@ export function useCommandPalette({
         }
         setIsOpen(false);
     }, []);
+
+    const runThemeItem = useCallback(
+        (item: ThemePaletteItem): void => {
+            setTheme(item.id);
+        },
+        [setTheme]
+    );
 
     useEffect(() => {
         if (isOpen) {
@@ -111,6 +157,7 @@ export function useCommandPalette({
             setIsMounted(false);
             setSearch('');
             setSelectedIndex(0);
+            setView('commands');
         }, 300);
 
         return (): void => window.clearTimeout(timeout);
@@ -149,28 +196,49 @@ export function useCommandPalette({
             }
             if (e.key === 'Enter') {
                 e.preventDefault();
-                if (allItems[selectedIndex]) runItem(allItems[selectedIndex]);
+                if (view === 'themes') {
+                    const item = themeItems[selectedIndex];
+                    if (item) runThemeItem(item);
+                } else {
+                    const item = commandItems[selectedIndex];
+                    if (item) runItem(item);
+                }
                 return;
             }
             if (e.key === 'Escape') {
                 e.preventDefault();
-                setIsOpen(false);
+                if (view === 'themes') {
+                    setView('commands');
+                    setSearch('');
+                    setSelectedIndex(0);
+                } else {
+                    setIsOpen(false);
+                }
             }
         };
 
         document.addEventListener('keydown', onKeyDown);
         return (): void => document.removeEventListener('keydown', onKeyDown);
-    }, [isOpen, allItems, selectedIndex, runItem]);
+    }, [
+        isOpen,
+        allItems.length,
+        selectedIndex,
+        runItem,
+        runThemeItem,
+        view,
+        themeItems,
+        commandItems,
+    ]);
 
     useEffect(() => {
         setSelectedIndex(0);
-    }, [search]);
+    }, [search, view]);
 
     useEffect(() => {
         if (isOpen && isVisible) {
             inputRef.current?.focus();
         }
-    }, [isOpen, isVisible]);
+    }, [isOpen, isVisible, view]);
 
     useEffect(() => {
         if (!isOpen || !listRef.current) return;
@@ -181,12 +249,14 @@ export function useCommandPalette({
     }, [selectedIndex, isOpen]);
 
     return {
+        view,
         isOpen,
         isMounted,
         isVisible,
         search,
         selectedIndex,
         filteredGroups,
+        themeItems,
         inputRef,
         listRef,
         open,
@@ -195,5 +265,6 @@ export function useCommandPalette({
         setSearch,
         setSelectedIndex,
         runItem,
+        runThemeItem,
     };
 }

@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import type { ActionIcon, NavIcon } from '@/types/icons';
+import type { ActionIcon, NavIcon, UiIcon } from '@/types/icons';
 import type {
     SiteLinkItem,
     SiteNavigationItem,
@@ -31,7 +31,10 @@ export interface PaletteCommands {
 
 export type { SiteLinkItem, SiteNavigationItem, SitePaletteData };
 
-export interface FlatPaletteItem {
+export type PaletteView = 'commands' | 'themes';
+
+export interface LinkPaletteItem {
+    kind: 'link';
     id: string;
     label: string;
     href: string;
@@ -40,10 +43,28 @@ export interface FlatPaletteItem {
     badge?: string;
 }
 
+export interface SubmenuPaletteItem {
+    kind: 'submenu';
+    id: string;
+    label: string;
+    icon: UiIcon;
+    submenu: 'themes';
+    badge?: string;
+}
+
+export type FlatPaletteItem = LinkPaletteItem | SubmenuPaletteItem;
+
 export interface PaletteGroup {
     id: string;
     heading: string;
     items: FlatPaletteItem[];
+}
+
+export interface ThemePaletteItem {
+    id: string;
+    label: string;
+    swatches: string[];
+    isActive: boolean;
 }
 
 export interface UseCommandPaletteOptions {
@@ -52,12 +73,14 @@ export interface UseCommandPaletteOptions {
 }
 
 export interface UseCommandPaletteResult {
+    view: PaletteView;
     isOpen: boolean;
     isMounted: boolean;
     isVisible: boolean;
     search: string;
     selectedIndex: number;
     filteredGroups: PaletteGroup[];
+    themeItems: ThemePaletteItem[];
     inputRef: RefObject<HTMLInputElement>;
     listRef: RefObject<HTMLDivElement>;
     open: () => void;
@@ -66,4 +89,5 @@ export interface UseCommandPaletteResult {
     setSearch: (value: string) => void;
     setSelectedIndex: (index: number) => void;
     runItem: (item: FlatPaletteItem) => void;
+    runThemeItem: (item: ThemePaletteItem) => void;
 }
