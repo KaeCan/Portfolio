@@ -12,7 +12,7 @@ export function Hero({ name, role }: Props): JSX.Element {
     return (
         <Section>
             <Container>
-                <HeroAvatar />
+                <HeroAvatar name={name} />
 
                 <Heading>{name}</Heading>
 

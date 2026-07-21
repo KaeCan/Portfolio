@@ -29,8 +29,13 @@ export const Avatar = styled('div')({
     height: '100%',
     borderRadius: '50%',
     backgroundColor: 'var(--color-surface-muted)',
-    color: 'var(--color-text-placeholder)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    overflow: 'hidden',
+});
+
+export const AvatarImage = styled('img')({
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    objectPosition: 'center',
+    display: 'block',
 });
