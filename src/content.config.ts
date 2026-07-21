@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
-import { file } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { ACTION_ICONS, NAV_ICONS } from '@/types/icons';
 
 const experience = defineCollection({
     loader: file('src/content/experience.json'),
@@ -51,7 +52,7 @@ const site = defineCollection({
                 label: z.string(),
                 currentLabel: z.string(),
                 href: z.string(),
-                icon: z.enum(['home', 'experience']),
+                icon: z.enum(NAV_ICONS),
             })
         ),
         social: z.array(
@@ -59,7 +60,7 @@ const site = defineCollection({
                 id: z.string(),
                 label: z.string(),
                 href: z.string(),
-                icon: z.enum(['github', 'linkedin', 'email', 'resume']),
+                icon: z.enum(ACTION_ICONS),
                 external: z.boolean().default(true),
             })
         ),
@@ -68,11 +69,29 @@ const site = defineCollection({
                 id: z.string(),
                 label: z.string(),
                 href: z.string(),
-                icon: z.enum(['github', 'linkedin', 'email', 'resume']),
+                icon: z.enum(ACTION_ICONS),
                 external: z.boolean().default(true),
             })
         ),
     }),
 });
 
-export const collections = { experience, projects, site };
+/** Reserved for future AI-curated resume variants — no UI yet. */
+const detailedExperience = defineCollection({
+    loader: glob({
+        base: './src/content/detailed-experience',
+        pattern: '**/*.md',
+    }),
+    schema: z.object({
+        title: z.string(),
+        experienceId: z.string().optional(),
+        draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = {
+    experience,
+    projects,
+    site,
+    detailedExperience,
+};

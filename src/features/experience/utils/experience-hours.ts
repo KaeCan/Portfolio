@@ -1,6 +1,4 @@
-export interface ExperienceDuration {
-    duration: string;
-}
+import type { ExperienceDuration } from '@/types/content';
 
 const WORK_HOURS_PER_YEAR = 2080;
 
@@ -107,7 +105,20 @@ export const calculateTotalHours = (
 export const calculateYears = (totalHours: number): number =>
     Math.floor(totalHours / WORK_HOURS_PER_YEAR);
 
-export const formatExperienceDisplay = (
-    totalHours: number,
-    totalYears: number
-): string => `${totalHours.toFixed(3)} Hrs<br />(${totalYears}+ years)`;
+export interface ExperienceMetrics {
+    totalHours: number;
+    totalYears: number;
+}
+
+export const getExperienceMetrics = (
+    experiences: ExperienceDuration[]
+): ExperienceMetrics => {
+    const totalHours = calculateTotalHours(experiences);
+    return {
+        totalHours,
+        totalYears: calculateYears(totalHours),
+    };
+};
+
+export const formatHours = (totalHours: number): string =>
+    totalHours.toFixed(3);

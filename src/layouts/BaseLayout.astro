@@ -1,8 +1,13 @@
 ---
 import { getEntry } from 'astro:content';
-import SEO from '../components/seo/SEO.astro';
-import CommandPalette from '../components/islands/CommandPalette';
-import '../styles/global.css';
+import '@pigment-css/react/styles.css';
+import SEO from '@/components/seo/SEO.astro';
+import { CommandPalette } from '@/features/command-palette';
+import {
+    buildPaletteCommands,
+    normalizePath,
+} from '@/features/command-palette/utils/palette-commands';
+import '@/styles/global.css';
 
 export interface Props {
     title?: string;
@@ -23,48 +28,12 @@ const {
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-const withBase = (href: string): string => {
-    if (href.startsWith('http') || href.startsWith('mailto:')) return href;
-    if (href === '/') return `${base}/` || '/';
-    return `${base}${href}`;
-};
-
-const paletteCommands = {
-    navigation: site.navigation.map(item => ({
-        id: item.id,
-        label: item.label,
-        currentLabel: item.currentLabel,
-        href: withBase(item.href),
-        icon: item.icon,
-        path: item.href === '/' ? '/' : item.href,
-    })),
-    social: site.social.map(item => ({
-        id: item.id,
-        label: item.label,
-        href: withBase(item.href),
-        icon: item.icon,
-        external: item.external,
-    })),
-    actions: site.actions.map(item => ({
-        id: item.id,
-        label: item.label,
-        href: withBase(item.href),
-        icon: item.icon,
-        external: item.external,
-    })),
-};
-
-const normalizedPath = (() => {
-    const withoutBase = currentPath.startsWith(base)
-        ? currentPath.slice(base.length) || '/'
-        : currentPath;
-    return withoutBase === '' ? '/' : withoutBase;
-})();
+const paletteCommands = buildPaletteCommands(site, base);
+const normalizedPath = normalizePath(currentPath, base);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
     <head>
         <SEO title={title} description={description} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,7 +52,7 @@ const normalizedPath = (() => {
                 <slot />
             </main>
             <CommandPalette
-                client:idle
+                client:load
                 commands={paletteCommands}
                 currentPath={normalizedPath}
             />
