@@ -32,20 +32,7 @@ export default defineConfig({
             },
         },
         optimizeDeps: {
-            include: [
-                'react',
-                'react-dom',
-                'react/jsx-runtime',
-                'react/jsx-dev-runtime',
-                'react-dom/client',
-                'react-is',
-                '@mui/utils',
-            ],
-        },
-        ssr: {
-            optimizeDeps: {
-                include: ['react', 'react-dom', 'react-dom/server', 'react-is'],
-            },
+            include: ['react-is', '@mui/utils'],
         },
     },
 });

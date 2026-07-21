@@ -17,6 +17,16 @@ export const Card = styled('article')({
         backgroundColor: 'var(--glass-bg-hover)',
         borderColor: 'var(--glass-border-accent)',
     },
+    '@media (hover: none) and (pointer: coarse)': {
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none',
+        backgroundColor:
+            'color-mix(in srgb, var(--color-surface) 92%, var(--color-bg))',
+        '&:hover': {
+            backgroundColor:
+                'color-mix(in srgb, var(--color-surface) 96%, var(--color-bg))',
+        },
+    },
 });
 
 export const ImageWrap = styled('div')({

@@ -1,11 +1,10 @@
 import { styled } from '@pigment-css/react';
 
 export const Section = styled('section')({
-    minHeight: '100vh',
+    minHeight: '100%',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    overflowY: 'auto',
     padding: '2rem 0 4rem',
     '@media (min-width: 768px)': {
         padding: '3rem 0 4rem',

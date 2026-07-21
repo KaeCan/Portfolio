@@ -235,7 +235,11 @@ export function useCommandPalette({
     }, [search, view]);
 
     useEffect(() => {
-        if (isOpen && isVisible) {
+        if (
+            isOpen &&
+            isVisible &&
+            !window.matchMedia('(pointer: coarse)').matches
+        ) {
             inputRef.current?.focus();
         }
     }, [isOpen, isVisible, view]);

@@ -97,12 +97,27 @@
     );
     --gradient-shell: linear-gradient(
         -45deg,
-        var(--shell-1),
-        var(--shell-2),
-        var(--shell-3),
-        var(--shell-4),
-        var(--shell-5),
-        var(--shell-6)
+        var(--shell-1) 0%,
+        var(--shell-2) 5%,
+        var(--shell-3) 10%,
+        var(--shell-4) 15%,
+        var(--shell-5) 20%,
+        var(--shell-6) 25%,
+        var(--shell-5) 30%,
+        var(--shell-4) 35%,
+        var(--shell-3) 40%,
+        var(--shell-2) 45%,
+        var(--shell-1) 50%,
+        var(--shell-2) 55%,
+        var(--shell-3) 60%,
+        var(--shell-4) 65%,
+        var(--shell-5) 70%,
+        var(--shell-6) 75%,
+        var(--shell-5) 80%,
+        var(--shell-4) 85%,
+        var(--shell-3) 90%,
+        var(--shell-2) 95%,
+        var(--shell-1) 100%
     );
     --shell-1: var(--color-accent);
     --shell-2: var(--color-primary);
