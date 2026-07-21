@@ -21,6 +21,6 @@ const { title, description = 'Professional portfolio and resume website' } =
 <link
     rel="icon"
     type="image/svg+xml"
-    href={`${import.meta.env.BASE_URL}favicon.svg`}
+    href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`}
 />
 <title>{title}</title>
