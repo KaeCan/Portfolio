@@ -58,11 +58,11 @@ const normalizedPath = normalizePath(currentPath, base);
             <main class="page-enter">
                 <slot />
             </main>
-            <CommandPalette
-                client:load
-                commands={paletteCommands}
-                currentPath={normalizedPath}
-            />
         </div>
+        <CommandPalette
+            client:load
+            commands={paletteCommands}
+            currentPath={normalizedPath}
+        />
     </body>
 </html>

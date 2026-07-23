@@ -3,6 +3,7 @@ import {
     Backdrop,
     Overlay,
     Panel,
+    PanelClip,
     backdropOpen,
     panelOpen,
 } from './PaletteDialog.styles';
@@ -32,7 +33,7 @@ export function PaletteDialog({
                 aria-modal="true"
                 aria-label="Command palette"
             >
-                {children}
+                <PanelClip>{children}</PanelClip>
             </Panel>
         </Overlay>
     );

@@ -2,8 +2,8 @@ import { styled } from '@pigment-css/react';
 
 export const Card = styled('article')({
     backgroundColor: 'var(--glass-bg)',
-    backdropFilter: 'blur(var(--glass-blur))',
     WebkitBackdropFilter: 'blur(var(--glass-blur))',
+    backdropFilter: 'blur(var(--glass-blur))',
     border: '1px solid var(--glass-border)',
     borderRadius: '1.5rem',
     boxShadow: 'var(--shadow-glass)',
@@ -15,8 +15,8 @@ export const Card = styled('article')({
         borderColor: 'var(--glass-border-accent)',
     },
     '@media (hover: none) and (pointer: coarse)': {
-        backdropFilter: 'none',
         WebkitBackdropFilter: 'none',
+        backdropFilter: 'none',
         backgroundColor:
             'color-mix(in srgb, var(--color-surface) 92%, var(--color-bg))',
         '&:hover': {

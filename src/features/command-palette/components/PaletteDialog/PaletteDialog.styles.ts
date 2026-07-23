@@ -24,15 +24,15 @@ export const Backdrop = styled('button')({
     margin: 0,
     cursor: 'pointer',
     backgroundColor: 'var(--color-overlay-transparent)',
-    backdropFilter: 'blur(0px)',
-    WebkitBackdropFilter: 'blur(0px)',
+    WebkitBackdropFilter: 'none',
+    backdropFilter: 'none',
     transition: 'background-color 300ms ease, backdrop-filter 300ms ease',
 });
 
 export const backdropOpen = css({
     backgroundColor: 'var(--color-overlay)',
-    backdropFilter: 'blur(4px)',
     WebkitBackdropFilter: 'blur(4px)',
+    backdropFilter: 'blur(4px)',
 });
 
 export const Panel = styled('div')({
@@ -41,12 +41,11 @@ export const Panel = styled('div')({
     width: '100%',
     maxWidth: '640px',
     backgroundColor: 'var(--glass-bg)',
-    backdropFilter: 'blur(0px)',
-    WebkitBackdropFilter: 'blur(0px)',
+    WebkitBackdropFilter: 'none',
+    backdropFilter: 'none',
     border: '1px solid var(--glass-border)',
     borderRadius: '16px',
     boxShadow: 'var(--shadow-glass)',
-    overflow: 'hidden',
     outline: 'none',
     opacity: 0,
     transform: 'translateY(4px)',
@@ -55,8 +54,13 @@ export const Panel = styled('div')({
 });
 
 export const panelOpen = css({
-    backdropFilter: 'blur(var(--glass-blur))',
-    WebkitBackdropFilter: 'blur(var(--glass-blur))',
+    WebkitBackdropFilter: 'blur(24px)',
+    backdropFilter: 'blur(24px)',
     opacity: 1,
     transform: 'translateY(0)',
+});
+
+export const PanelClip = styled('div')({
+    overflow: 'hidden',
+    borderRadius: '16px',
 });
