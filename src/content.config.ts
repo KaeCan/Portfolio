@@ -46,9 +46,9 @@ const projects = defineCollection({
         title: z.string(),
         description: z.string(),
         technologies: z.array(z.string()),
-        githubUrl: z.string().url().optional(),
-        liveUrl: z.string().url().optional(),
-        imageUrl: z.string().url().optional(),
+        githubUrl: z.url().optional(),
+        liveUrl: z.url().optional(),
+        imageUrl: z.url().optional(),
         featured: z.boolean(),
     }),
 });
@@ -72,7 +72,7 @@ const site = defineCollection({
         name: z.string(),
         role: z.string(),
         description: z.string(),
-        githubProfile: z.string().url(),
+        githubProfile: z.url(),
         stats: z.array(
             z.object({
                 number: z.string(),
