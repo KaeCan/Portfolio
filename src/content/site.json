@@ -6,9 +6,7 @@
         "description": "Professional portfolio and resume website",
         "githubProfile": "https://github.com/KaeCan",
         "stats": [
-            { "number": "2+ years", "label": "Cursor AI Usage" },
-            { "number": "1", "label": "Girlfriend" },
-            { "number": "A lot", "label": "Tea Cups" }
+            { "number": "2+ years", "label": "Cursor AI Usage" }
         ],
         "navigation": [
             {

@@ -41,6 +41,11 @@ export const StatNumber = styled('p')({
     marginBottom: '0.5rem',
 });
 
+export const StatNumberSecondary = styled('span')({
+    fontSize: '1rem',
+    fontWeight: 500,
+});
+
 export const StatLabel = styled('p')({
     color: 'var(--color-text-secondary)',
     fontSize: '0.875rem',
