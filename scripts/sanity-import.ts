@@ -1,3 +1,4 @@
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { access } from 'node:fs/promises';
@@ -19,13 +20,16 @@ function usage(): never {
 }
 
 async function runSanity(args: string[]): Promise<void> {
-    const proc = Bun.spawn(['bunx', 'sanity', ...args], {
-        cwd: studioDir,
-        stdout: 'inherit',
-        stderr: 'inherit',
-        stdin: 'inherit',
+    const code = await new Promise<number>((resolve, reject) => {
+        const proc = spawn('bun', ['x', 'sanity', ...args], {
+            cwd: studioDir,
+            stdio: 'inherit',
+        });
+        proc.on('error', reject);
+        proc.on('close', exitCode => {
+            resolve(exitCode ?? 1);
+        });
     });
-    const code = await proc.exited;
     if (code !== 0) {
         process.exit(code);
     }

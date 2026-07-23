@@ -4,11 +4,12 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import { pigment } from '@pigment-css/vite-plugin';
+import { sanityPublishRefresh } from './src/integrations/sanity-publish-refresh.ts';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-    integrations: [react()],
+    integrations: [react(), sanityPublishRefresh()],
     site: 'https://kaecan.github.io',
     base: '/Portfolio',
     output: 'static',

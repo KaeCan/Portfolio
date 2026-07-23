@@ -19,16 +19,20 @@ export default defineConfig({
                     .title('Content')
                     .items([
                         S.listItem()
-                            .title('Site')
-                            .id('site')
+                            .id('siteSettings')
+                            .schemaType('site')
+                            .title('Site settings')
                             .child(
-                                S.document()
+                                S.editor()
+                                    .id('siteSettings')
                                     .schemaType('site')
                                     .documentId('site')
                             ),
-                        ...S.documentTypeListItems().filter(
-                            (item) => !singletonTypes.has(item.getId() ?? '')
+                        S.divider(),
+                        S.documentTypeListItem('experience').title(
+                            'Experience'
                         ),
+                        S.documentTypeListItem('project').title('Project'),
                     ]),
         }),
         visionTool(),
