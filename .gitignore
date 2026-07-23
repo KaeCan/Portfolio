@@ -55,8 +55,7 @@ jspm_packages/
 tmp/
 temp/
 
-scripts/seed-data/
-scripts/seed-sanity.ts
+backups/
 
 NOTES.local.md
 *.local.md

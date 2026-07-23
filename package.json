@@ -13,7 +13,8 @@
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "type-check": "astro check",
-        "seed:sanity": "bun run scripts/seed-sanity.ts"
+        "sanity:export": "bun run scripts/sanity-export.ts",
+        "sanity:import": "bun run scripts/sanity-import.ts"
     },
     "dependencies": {
         "@astrojs/check": "0.9.9",
