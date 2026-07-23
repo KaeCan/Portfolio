@@ -7,10 +7,9 @@ import { pigment } from '@pigment-css/vite-plugin';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
-// https://astro.build/config
 export default defineConfig({
     integrations: [react()],
-    site: 'https://fireb.github.io',
+    site: 'https://kaecan.github.io',
     base: '/Portfolio',
     output: 'static',
     build: {
@@ -19,8 +18,7 @@ export default defineConfig({
     vite: {
         plugins: [
             pigment({
-                // Pigment resolves the theme module at build time via file path.
-                // @ts-expect-error — vite plugin accepts a theme file path string.
+                // @ts-expect-error theme accepts a file path string
                 theme: './src/styles/pigment-theme.ts',
             }),
         ],

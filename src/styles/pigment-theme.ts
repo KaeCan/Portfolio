@@ -1,9 +1,5 @@
 import { extendTheme } from '@pigment-css/react/utils';
 
-/**
- * Pigment theme bridge — references CSS custom properties from tokens.css
- * so runtime theme presets can override tokens without rebuilding styles.
- */
 export const theme = extendTheme({
     colorSchemes: {
         dark: {

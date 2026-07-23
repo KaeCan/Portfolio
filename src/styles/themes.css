@@ -1,7 +1,3 @@
-/*
- * Theme presets — override semantic tokens via [data-theme].
- */
-
 [data-theme='dracula'] {
     --color-primary: #bd93f9;
     --color-primary-dark: #9b59d0;
@@ -386,8 +382,6 @@
     --shell-5: var(--color-surface);
     --shell-6: var(--color-bg);
 }
-
-/* Light themes — inverted glass/text-on-glass tokens */
 
 [data-theme='latte'] {
     --color-primary: #8839ef;

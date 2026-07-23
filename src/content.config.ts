@@ -1,25 +1,46 @@
 import { defineCollection } from 'astro:content';
-import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { ACTION_ICONS, NAV_ICONS } from '@/types/icons';
+import { sanityLoader } from '@/loaders/sanity-loader';
 
 const experience = defineCollection({
-    loader: file('src/content/experience.json'),
+    loader: sanityLoader({
+        query: `*[_type == "experience"]{
+            id,
+            order,
+            company,
+            position,
+            duration,
+            summary,
+            description,
+            technologies
+        }`,
+    }),
     schema: z.object({
         id: z.string(),
         company: z.string(),
         position: z.string(),
         duration: z.string(),
         summary: z.string().optional(),
-        description: z.union([z.string(), z.array(z.string())]),
+        description: z.array(z.string()),
         technologies: z.array(z.string()),
-        order: z.number().default(0),
+        order: z.number(),
     }),
 });
 
-/** Kept for later — projects page is currently disabled (no route). */
 const projects = defineCollection({
-    loader: file('src/content/projects.json'),
+    loader: sanityLoader({
+        query: `*[_type == "project"]{
+            id,
+            title,
+            description,
+            technologies,
+            githubUrl,
+            liveUrl,
+            imageUrl,
+            featured
+        }`,
+    }),
     schema: z.object({
         id: z.string(),
         title: z.string(),
@@ -28,12 +49,24 @@ const projects = defineCollection({
         githubUrl: z.string().url().optional(),
         liveUrl: z.string().url().optional(),
         imageUrl: z.string().url().optional(),
-        featured: z.boolean().default(false),
+        featured: z.boolean(),
     }),
 });
 
 const site = defineCollection({
-    loader: file('src/content/site.json'),
+    loader: sanityLoader({
+        query: `*[_type == "site"]{
+            id,
+            name,
+            role,
+            description,
+            githubProfile,
+            stats[]{ number, label },
+            navigation[]{ id, label, currentLabel, href, icon },
+            social[]{ id, label, href, icon, external },
+            actions[]{ id, label, href, icon, external }
+        }`,
+    }),
     schema: z.object({
         id: z.string(),
         name: z.string(),
@@ -61,7 +94,7 @@ const site = defineCollection({
                 label: z.string(),
                 href: z.string(),
                 icon: z.enum(ACTION_ICONS),
-                external: z.boolean().default(true),
+                external: z.boolean(),
             })
         ),
         actions: z.array(
@@ -70,22 +103,9 @@ const site = defineCollection({
                 label: z.string(),
                 href: z.string(),
                 icon: z.enum(ACTION_ICONS),
-                external: z.boolean().default(true),
+                external: z.boolean(),
             })
         ),
-    }),
-});
-
-/** Reserved for future AI-curated resume variants — no UI yet. */
-const detailedExperience = defineCollection({
-    loader: glob({
-        base: './src/content/detailed-experience',
-        pattern: '**/*.md',
-    }),
-    schema: z.object({
-        title: z.string(),
-        experienceId: z.string().optional(),
-        draft: z.boolean().default(false),
     }),
 });
 
@@ -93,5 +113,4 @@ export const collections = {
     experience,
     projects,
     site,
-    detailedExperience,
 };

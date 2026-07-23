@@ -1,9 +1,4 @@
-/*
- * Design tokens — runtime source of truth for theming.
- * Presets override these via [data-theme="…"] in themes.css.
- */
 :root {
-    /* Brand */
     --color-primary: #cba6f7;
     --color-primary-dark: #a78bda;
     --color-primary-light: #d9bcfa;
@@ -12,7 +7,6 @@
     --color-accent: #f5c2e7;
     --color-accent-secondary: #89b4fa;
 
-    /* Text */
     --color-text-primary: #cdd6f4;
     --color-text-heading: #cdd6f4;
     --color-text-secondary: #bac2de;
@@ -24,12 +18,10 @@
     --color-text-on-glass-muted: rgba(205, 214, 244, 0.6);
     --color-text-on-glass-subtle: rgba(205, 214, 244, 0.5);
 
-    /* Surfaces */
     --color-bg: #1e1e2e;
     --color-surface: #313244;
     --color-surface-muted: #45475a;
 
-    /* Glass */
     --glass-bg: rgba(255, 255, 255, 0.07);
     --glass-bg-light: rgba(255, 255, 255, 0.05);
     --glass-bg-hover: rgba(255, 255, 255, 0.11);
@@ -44,7 +36,6 @@
     --glass-inset-highlight-soft: rgba(255, 255, 255, 0.07);
     --glass-inset-highlight-strong: rgba(255, 255, 255, 0.15);
 
-    /* Interactive */
     --color-interactive-bg: color-mix(
         in srgb,
         var(--color-accent) 28%,
@@ -61,7 +52,6 @@
         transparent
     );
 
-    /* Accent */
     --color-accent-surface: color-mix(
         in srgb,
         var(--color-accent) 16%,
@@ -73,11 +63,9 @@
         var(--glass-border)
     );
 
-    /* Overlay */
     --color-overlay: rgba(0, 0, 0, 0.55);
     --color-overlay-transparent: rgba(0, 0, 0, 0);
 
-    /* Shadows */
     --shadow-glass:
         0 20px 40px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 var(--glass-inset-highlight);
@@ -88,7 +76,6 @@
         0 6px 20px var(--color-interactive-shadow),
         inset 0 1px 0 var(--glass-inset-highlight-strong);
 
-    /* Gradients */
     --gradient-avatar: linear-gradient(
         135deg,
         var(--color-primary),
@@ -127,11 +114,9 @@
     --shell-6: var(--color-bg);
     --shell-gradient-opacity: 0.4;
 
-    /* Layout */
     --page-max: 64rem;
     --page-max-wide: 96rem;
 
-    /* Legacy aliases — prefer semantic names above */
     --primary-color: var(--color-primary);
     --secondary-color: var(--color-primary-dark);
     --accent-color: var(--color-accent);
