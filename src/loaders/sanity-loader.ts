@@ -1,12 +1,22 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createClient, type SanityClient } from '@sanity/client';
 import type { Loader, LoaderContext } from 'astro/loaders';
+import { loadEnv } from 'vite';
 
 export interface SanityLoaderOptions {
     query: string;
 }
 
+const root = path.dirname(fileURLToPath(import.meta.url));
+const env = loadEnv(
+    process.env.NODE_ENV ?? 'development',
+    path.resolve(root, '../..'),
+    ''
+);
+
 function requireEnv(name: string): string {
-    const value = process.env[name];
+    const value = env[name] ?? process.env[name];
     if (!value) {
         throw new Error(`Missing ${name}`);
     }

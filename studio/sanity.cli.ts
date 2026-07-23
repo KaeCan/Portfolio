@@ -1,12 +1,5 @@
 import { defineCliConfig } from 'sanity/cli';
-
-function requireEnv(name: string): string {
-    const value = process.env[name];
-    if (!value) {
-        throw new Error(`Missing ${name}`);
-    }
-    return value;
-}
+import { requireEnv } from './env';
 
 export default defineCliConfig({
     api: {

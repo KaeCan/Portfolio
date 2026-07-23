@@ -11,9 +11,9 @@ const experience = defineCollection({
             company,
             position,
             duration,
-            summary,
             description,
-            technologies
+            technologies,
+            ...select(defined(summary) => {summary})
         }`,
     }),
     schema: z.object({
@@ -35,10 +35,10 @@ const projects = defineCollection({
             title,
             description,
             technologies,
-            githubUrl,
-            liveUrl,
-            imageUrl,
-            featured
+            featured,
+            ...select(defined(githubUrl) => {githubUrl}),
+            ...select(defined(liveUrl) => {liveUrl}),
+            ...select(defined(imageUrl) => {imageUrl})
         }`,
     }),
     schema: z.object({

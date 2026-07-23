@@ -1,15 +1,8 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
+import { requireEnv } from './env';
 import { schemaTypes } from './schemaTypes';
-
-function requireEnv(name: string): string {
-    const value = process.env[name];
-    if (!value) {
-        throw new Error(`Missing ${name}`);
-    }
-    return value;
-}
 
 const singletonTypes = new Set(['site']);
 const singletonActions = new Set(['publish', 'discardChanges', 'restore']);
