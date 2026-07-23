@@ -15,7 +15,7 @@ Personal portfolio site — static Astro app with React islands, Pigment CSS, an
 
 ```bash
 bun install
-cp .env.example .env   # SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_READ_TOKEN
+cp .env.example .env   # SANITY_PROJECT_ID, SANITY_DATASET
 bun run dev
 ```
 
