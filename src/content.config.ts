@@ -101,7 +101,7 @@ const site = defineCollection({
         role: z.string(),
         description: z.string(),
         githubProfile: z.url(),
-        email: z.string().email(),
+        email: z.email(),
         phone: z.string(),
         location: z.string(),
         website: z.url(),

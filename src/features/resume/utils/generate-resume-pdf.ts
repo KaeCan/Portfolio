@@ -73,7 +73,11 @@ export const generateResumePdf = async (data: ResumeData): Promise<void> => {
                     scrollX: 0,
                     scrollY: 0,
                 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'letter',
+                    orientation: 'portrait',
+                },
             })
             .from(element)
             .save();
