@@ -70,6 +70,7 @@ export interface ThemePaletteItem {
 export interface UseCommandPaletteOptions {
     commands: PaletteCommands;
     currentPath: string;
+    onDownloadResume: () => void | Promise<void>;
 }
 
 export interface UseCommandPaletteResult {

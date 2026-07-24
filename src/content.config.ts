@@ -28,6 +28,29 @@ const experience = defineCollection({
     }),
 });
 
+const education = defineCollection({
+    loader: sanityLoader({
+        query: `*[_type == "education"]{
+            id,
+            order,
+            institution,
+            degree,
+            graduationDate,
+            highlights,
+            ...select(defined(gpa) => {gpa})
+        }`,
+    }),
+    schema: z.object({
+        id: z.string(),
+        institution: z.string(),
+        degree: z.string(),
+        gpa: z.string().optional(),
+        graduationDate: z.string(),
+        highlights: z.array(z.string()),
+        order: z.number(),
+    }),
+});
+
 const projects = defineCollection({
     loader: sanityLoader({
         query: `*[_type == "project"]{
@@ -61,6 +84,11 @@ const site = defineCollection({
             role,
             description,
             githubProfile,
+            email,
+            phone,
+            location,
+            website,
+            skills[]{ category, items },
             stats[]{ number, label },
             navigation[]{ id, label, currentLabel, href, icon },
             social[]{ id, label, href, icon, external },
@@ -73,6 +101,16 @@ const site = defineCollection({
         role: z.string(),
         description: z.string(),
         githubProfile: z.url(),
+        email: z.email(),
+        phone: z.string(),
+        location: z.string(),
+        website: z.url(),
+        skills: z.array(
+            z.object({
+                category: z.string(),
+                items: z.array(z.string()),
+            })
+        ),
         stats: z.array(
             z.object({
                 number: z.string(),
@@ -111,6 +149,7 @@ const site = defineCollection({
 
 export const collections = {
     experience,
+    education,
     projects,
     site,
 };

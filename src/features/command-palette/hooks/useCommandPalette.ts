@@ -24,6 +24,7 @@ const CHANGE_THEME_ITEM: SubmenuPaletteItem = {
 export function useCommandPalette({
     commands,
     currentPath,
+    onDownloadResume,
 }: UseCommandPaletteOptions): UseCommandPaletteResult {
     const { themeId, setTheme } = useTheme();
     const [view, setView] = useState<PaletteView>('commands');
@@ -114,21 +115,30 @@ export function useCommandPalette({
         setIsOpen(prev => !prev);
     }, []);
 
-    const runItem = useCallback((item: FlatPaletteItem): void => {
-        if (item.kind === 'submenu') {
-            setView('themes');
-            setSearch('');
-            setSelectedIndex(0);
-            return;
-        }
+    const runItem = useCallback(
+        (item: FlatPaletteItem): void => {
+            if (item.kind === 'submenu') {
+                setView('themes');
+                setSearch('');
+                setSelectedIndex(0);
+                return;
+            }
 
-        if (item.external) {
-            window.open(item.href, '_blank', 'noopener,noreferrer');
-        } else {
-            window.location.href = item.href;
-        }
-        setIsOpen(false);
-    }, []);
+            if (item.icon === 'resume') {
+                void onDownloadResume();
+                setIsOpen(false);
+                return;
+            }
+
+            if (item.external) {
+                window.open(item.href, '_blank', 'noopener,noreferrer');
+            } else {
+                window.location.href = item.href;
+            }
+            setIsOpen(false);
+        },
+        [onDownloadResume]
+    );
 
     const runThemeItem = useCallback(
         (item: ThemePaletteItem): void => {

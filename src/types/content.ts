@@ -6,6 +6,10 @@ export type ExperienceViewModel = Omit<ExperienceCollectionData, 'order'>;
 
 export type ExperienceDuration = Pick<ExperienceViewModel, 'duration'>;
 
+type EducationCollectionData = CollectionEntry<'education'>['data'];
+
+export type EducationViewModel = Omit<EducationCollectionData, 'order'>;
+
 type ProjectCollectionData = CollectionEntry<'projects'>['data'];
 
 export type ProjectViewModel = Omit<ProjectCollectionData, 'featured'>;
@@ -13,6 +17,8 @@ export type ProjectViewModel = Omit<ProjectCollectionData, 'featured'>;
 type SiteCollectionData = CollectionEntry<'site'>['data'];
 
 export type SiteStat = SiteCollectionData['stats'][number];
+
+export type SiteSkill = SiteCollectionData['skills'][number];
 
 export type SitePaletteData = Pick<
     SiteCollectionData,
