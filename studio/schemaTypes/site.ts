@@ -88,6 +88,68 @@ export const site = defineType({
             validation: (rule) => rule.required(),
         }),
         defineField({
+            name: 'email',
+            title: 'Email',
+            type: 'string',
+            validation: (rule) => rule.required().email(),
+        }),
+        defineField({
+            name: 'phone',
+            title: 'Phone',
+            type: 'string',
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: 'location',
+            title: 'Location',
+            type: 'string',
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: 'website',
+            title: 'Website',
+            type: 'url',
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: 'skills',
+            title: 'Skills',
+            type: 'array',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({
+                            name: 'category',
+                            title: 'Category',
+                            type: 'string',
+                            validation: (rule) => rule.required(),
+                        }),
+                        defineField({
+                            name: 'items',
+                            title: 'Items',
+                            type: 'array',
+                            of: [{ type: 'string' }],
+                            validation: (rule) => rule.required().min(1),
+                        }),
+                    ],
+                    preview: {
+                        select: { title: 'category', items: 'items' },
+                        prepare({ title, items }) {
+                            const subtitle = Array.isArray(items)
+                                ? items.join(', ')
+                                : '';
+                            return {
+                                title: title ?? 'Untitled',
+                                subtitle,
+                            };
+                        },
+                    },
+                },
+            ],
+            validation: (rule) => rule.required().min(1),
+        }),
+        defineField({
             name: 'stats',
             title: 'Stats',
             type: 'array',

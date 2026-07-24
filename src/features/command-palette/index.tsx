@@ -1,4 +1,6 @@
 import type { JSX } from 'react';
+import { useDownloadResume } from '@/features/resume/hooks/useDownloadResume';
+import type { ResumeData } from '@/features/resume/types';
 import { MenuFab } from './components/MenuFab/MenuFab';
 import { PaletteDialog } from './components/PaletteDialog/PaletteDialog';
 import { PaletteFooter } from './components/PaletteFooter/PaletteFooter';
@@ -11,10 +13,20 @@ import type { PaletteCommands } from './types';
 interface Props {
     commands: PaletteCommands;
     currentPath: string;
+    resumeData: ResumeData;
 }
 
-export function CommandPalette({ commands, currentPath }: Props): JSX.Element {
-    const palette = useCommandPalette({ commands, currentPath });
+export function CommandPalette({
+    commands,
+    currentPath,
+    resumeData,
+}: Props): JSX.Element {
+    const { downloadResume } = useDownloadResume(resumeData);
+    const palette = useCommandPalette({
+        commands,
+        currentPath,
+        onDownloadResume: downloadResume,
+    });
 
     return (
         <>

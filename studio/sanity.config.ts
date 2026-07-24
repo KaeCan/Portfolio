@@ -32,6 +32,9 @@ export default defineConfig({
                         S.documentTypeListItem('experience').title(
                             'Experience'
                         ),
+                        S.documentTypeListItem('education').title(
+                            'Education'
+                        ),
                         S.documentTypeListItem('project').title('Project'),
                     ]),
         }),

@@ -2,8 +2,7 @@ import type { AstroIntegration } from 'astro';
 import type { MutationEvent } from '@sanity/client';
 import { createSanityClient } from '../loaders/sanity-loader';
 
-const LISTEN_QUERY =
-    '*[_type in ["site", "experience", "project"] && !(_id in path("drafts.**"))]';
+const LISTEN_QUERY = '*[!(_id in path("drafts.**"))]';
 
 const DEBOUNCE_MS = 300;
 
